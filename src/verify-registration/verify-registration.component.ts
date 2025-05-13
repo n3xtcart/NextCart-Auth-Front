@@ -18,6 +18,7 @@ export class VerifyRegistrationComponent implements OnInit {
 
   success!: boolean
 
+  // NEL CASO IN CUI SI VOLESSE CREARE PIù SITUAZIONI DI ERRORE AGGIUNGERE QUI IL NUMERO E IL MESSAGGIO CORRISPONDENTE
   messages = {
     408: "il token per la registrazione è scaduto",
     500: "errore di comunicazione con il server"
@@ -27,19 +28,6 @@ export class VerifyRegistrationComponent implements OnInit {
 
   }
 
-  /*
-  // TEST FALLIMENTO
-    ngOnInit(): void {
-     this.message = 'Token di autenticazione è scaduto'
-    }
-  */
-
-  // TEST SUCCESSO
-  // ngOnInit() {
-  //   this.success = true;
-  // }
-
-  // EFFETTIVO CODICE, NON ANCORA IMPLEMENTATO
   ngOnInit(): void {
     this.routes.queryParams.subscribe((params) => {
       let tokenToVerify: string = params['token']
