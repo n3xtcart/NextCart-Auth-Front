@@ -1,1 +1,13 @@
-<p>verify-registration works!</p>
+<!-- MESSAGGIO DA MOSTRARE SE LA REGISTRAZIONE HA AVUTO SUCCESSO -->
+<div class="container" *ngIf="success">
+  <div class="alert alert-success" role="alert">
+    La registrazione ha avuto successo! Ora puoi chiudere questa scheda ed utilizzare il nostro servizio con le
+    credenziali che hai utilizzato per registrarti.
+  </div>
+</div>
+<!-- MESSAGGIO DA MOSTRARE SE LA REGISTRAZIONE NON HA AVUTO SUCCESSO -->
+<div class="container" *ngIf="!success">
+  <div class="alert alert-danger" role="alert">
+    La registrazione non ha avuto successo: {{ message }}
+  </div>
+</div>
