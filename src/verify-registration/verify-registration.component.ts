@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConfirmRegistrationService} from '../confirm-registration.service';
 import {NgIf} from '@angular/common';
+import {UserRegistrationReq} from '../_model/UserRegistrationReq';
 
 @Component({
   selector: 'app-verify-registration',
@@ -13,9 +14,14 @@ import {NgIf} from '@angular/common';
 })
 export class VerifyRegistrationComponent implements OnInit {
 
-  message: string = ''
+  message!: string
 
-  success: boolean = false
+  success!: boolean
+
+  messages = {
+    408: "il token per la registrazione è scaduto",
+    500: "errore di comunicazione con il server"
+  }
 
   constructor(private routes: ActivatedRoute, private confirmRegistrationService: ConfirmRegistrationService) {
 
@@ -29,18 +35,23 @@ export class VerifyRegistrationComponent implements OnInit {
   */
 
   // TEST SUCCESSO
-  ngOnInit() {
-    this.success = true;
-  }
+  // ngOnInit() {
+  //   this.success = true;
+  // }
 
-  /*
   // EFFETTIVO CODICE, NON ANCORA IMPLEMENTATO
-    ngOnInit(): void {
-     this.routes.queryParams.subscribe((params) => {
-      let tokenToVerify = params['token']
-      this.confirmRegistrationService.completeRegistration(tokenToVerify).subscribe(res => this.message = res.message)
+  ngOnInit(): void {
+    this.routes.queryParams.subscribe((params) => {
+      let tokenToVerify: string = params['token']
+      let token: UserRegistrationReq = {token: tokenToVerify}
+      this.confirmRegistrationService.completeRegistration(token).subscribe({
+        next: (_: any) => this.success = true,
+        error: (error: any) => {
+          // @ts-ignore
+          this.message = this.messages[error.status];
+        }
       })
-    }
-  */
+    })
+  }
 
 }
