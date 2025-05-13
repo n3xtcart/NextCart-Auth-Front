@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ConfirmRegistrationService} from '../confirm-registration.service';
+import {ConfirmRegistrationService} from '../_services/confirm-registration.service';
 import {NgIf} from '@angular/common';
 import {UserRegistrationReq} from '../_model/UserRegistrationReq';
 

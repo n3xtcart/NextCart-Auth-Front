@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <!--    TODO SELEZIONARE I CAMPI DI UNO USER      -->
+          <th scope="col">Id</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user.id) {
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>
+                <button class="btn btn-info" type="button" (click)="select(user)">Seleziona</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="delete(user)">Elimina</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

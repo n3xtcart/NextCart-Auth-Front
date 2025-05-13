@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Role</th>
+          <th scope="col">Priority</th>
+          <th scope="col">IsAdmin</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (role of roles; track role.id) {
+            <tr>
+              <td>{{ role.id }}</td>
+              <td>{{ role.role }}</td>
+              <td>{{ role.priority }}</td>
+              <td>{{ role.admin }}</td>
+              <td>
+                <button class="btn btn-info" type="button" (click)="select(role)">Seleziona</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="delete(role)">Elimina</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

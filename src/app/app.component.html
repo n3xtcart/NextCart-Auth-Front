@@ -17,6 +17,42 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/verify'">Verifica registrazione</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Users
+          </a>
+          <ul class="dropdown-menu">
+            <li><a id="createUser" class="dropdown-item " href="#">Create User</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a id="showUsers" class="dropdown-item " [routerLink]="'/main-menu/users'">Show Users</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Roles
+          </a>
+          <ul class="dropdown-menu">
+            <li><a id="createRole" class="dropdown-item " href="#">Create Role</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a id="showRoles" class="dropdown-item " [routerLink]="'/main-menu/roles'">Show Roles</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Groups
+          </a>
+          <ul class="dropdown-menu">
+            <li><a id="createGroup" class="dropdown-item " href="#">Create Group</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a id="showGroups" class="dropdown-item " [routerLink]="'/main-menu/groups'">Show Groups</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
