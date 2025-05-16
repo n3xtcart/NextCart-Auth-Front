@@ -20,12 +20,25 @@ export class MainMenuShowGroupsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.loadGroups().subscribe({
-      next: (groups: Group[]) => {
-        this._groups = groups;
-      },
-      error: (error: any) => console.log(error)
-    });
+    if(this.http.token){
+      this.http.checkToken(this.http.token).subscribe({
+        next: (token) => {
+          if(!token)this.router.navigate(["/login"]);
+          else{ this.http.loadGroups().subscribe({
+            next: (groups) => {
+              this._groups = groups;
+            },
+            error: (error) => {
+              console.log(error.error);
+            }
+          })}
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }else this.router.navigate(["/login"]);
+
   }
 
   select(group: Group) {

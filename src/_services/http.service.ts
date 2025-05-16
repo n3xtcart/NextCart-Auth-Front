@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {User} from '../_model/User';
-import {Observable} from 'rxjs';
+import {catchError, Observable, of, tap} from 'rxjs';
 import {Group} from '../_model/Group';
 import {Role} from '../_model/Role';
+import { Token } from '../_model/Token';
+import { LoginInfo } from '../_model/LoginInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,37 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  token!: string
+  token!: Token
 
-  login() {
+  login(email:string,password:string) :Observable<Token> {
+    let info:LoginInfo=new LoginInfo;
+    info.email=email;
+    info.password=password;
+    return this.http.post<Token>("http://localhost:8080/login",info).pipe(
+      tap(()=>{
+        console.log("login in corso per email : "+info.email);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log(error.error);
+        return [];
+      })
+    );
+
+  }
+
+  checkToken(token: Token): Observable<boolean> {
+    console.log(token)
+    const headers = new HttpHeaders({ Authorization: `${JSON.stringify(token)}` });
+  
+    return this.http.get<boolean>("http://localhost:8080/tokens/checkToken", { headers }).pipe(
+      tap(()=>{
+        console.log("check token");
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log(error);
+        return of(false);
+      })
+    );;
 
   }
 
@@ -37,3 +67,5 @@ export class HttpService {
     return this.http.get<Role[]>("/api/roles")
   }
 }
+
+

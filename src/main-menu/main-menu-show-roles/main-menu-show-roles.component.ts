@@ -20,14 +20,26 @@ export class MainMenuShowRolesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.loadRoles().subscribe({
-      next: (roles: Role[]) => {
-        this._roles = roles;
-      },
-      error: (roles: Role[]) => {
-        console.log(roles);
-      }
-    })
+    if(this.http.token){
+      this.http.checkToken(this.http.token).subscribe({
+        next: (token) => {
+          if(!token)this.router.navigate(["/login"]);
+          else{ this.http.loadRoles().subscribe({
+            next: (roles) => {
+              this._roles = roles;
+            },
+            error: (error) => {
+              console.log(error.error);
+            }
+          })}
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }else this.router.navigate(["/login"]);
+
+  
   }
 
 

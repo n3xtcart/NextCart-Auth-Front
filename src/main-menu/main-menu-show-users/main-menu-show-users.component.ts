@@ -20,14 +20,26 @@ export class MainMenuShowUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.loadUsers().subscribe({
-      next: (users) => {
-        this._users = users;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    if(this.http.token){
+      this.http.checkToken(this.http.token).subscribe({
+        next: (token) => {
+          if(!token)this.router.navigate(["/login"]);
+          else{ this.http.loadUsers().subscribe({
+            next: (users) => {
+              this._users = users;
+            },
+            error: (error) => {
+              console.log(error.error);
+            }
+          })}
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }else this.router.navigate(["/login"]);
+
+   
   }
 
   select(user: User) {
