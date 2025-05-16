@@ -21,7 +21,7 @@ export class HttpService {
     let info:LoginInfo=new LoginInfo;
     info.email=email;
     info.password=password;
-    return this.http.post<Token>("http://localhost:8080/login",info).pipe(
+    return this.http.post<Token>("/login",info).pipe(
       tap(()=>{
         console.log("login in corso per email : "+info.email);
       }),
@@ -37,7 +37,7 @@ export class HttpService {
     console.log(token)
     const headers = new HttpHeaders({ Authorization: `${JSON.stringify(token)}` });
   
-    return this.http.get<boolean>("http://localhost:8080/tokens/checkToken", { headers }).pipe(
+    return this.http.get<boolean>("/tokens/checkToken", { headers }).pipe(
       tap(()=>{
         console.log("check token");
       }),
