@@ -1,8 +1,8 @@
-import { User } from "./User"
+import { UserDTO } from "./User"
 
 export interface Token {
     id: number
     value:string
-    user: User
+    userDTO: UserDTO
   }
   

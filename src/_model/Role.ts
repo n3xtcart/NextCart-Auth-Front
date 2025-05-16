@@ -1,6 +1,6 @@
-export interface Role {
+export interface RoleDTO {
   id: number
-  role: string
   priority: number
   admin: boolean
+  descrizione:string
 }

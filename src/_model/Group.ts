@@ -1,6 +1,6 @@
-export interface Group {
+import { RoleDTO } from "./Role"
+
+export interface GroupDTO {
   id: number
-  role: string
-  priority: number
-  admin: boolean
+  roleDTO: RoleDTO
 }

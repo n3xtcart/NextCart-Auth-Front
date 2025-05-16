@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Role} from '../../_model/Role';
+import {RoleDTO} from '../../_model/Role';
 import {Router} from '@angular/router';
 import {HttpService} from '../../_services/http.service';
 
@@ -10,9 +10,9 @@ import {HttpService} from '../../_services/http.service';
   styleUrl: './main-menu-show-roles.component.css'
 })
 export class MainMenuShowRolesComponent implements OnInit {
-  private _roles: Role[] = [];
+  private _roles: RoleDTO[] = [];
 
-  get roles(): Role[] {
+  get roles(): RoleDTO[] {
     return this._roles;
   }
 
@@ -21,7 +21,7 @@ export class MainMenuShowRolesComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.http.token){
-      this.http.checkToken(this.http.token).subscribe({
+      this.http.checkToken().subscribe({
         next: (token) => {
           if(!token)this.router.navigate(["/login"]);
           else{ this.http.loadRoles().subscribe({
@@ -29,7 +29,7 @@ export class MainMenuShowRolesComponent implements OnInit {
               this._roles = roles;
             },
             error: (error) => {
-              console.log(error.error);
+              console.log(error);
             }
           })}
         },
@@ -43,12 +43,12 @@ export class MainMenuShowRolesComponent implements OnInit {
   }
 
 
-  select(role: Role) {
+  select(role: RoleDTO) {
     // TODO FUNZIONE DA IMPLEMENTARE
     console.log(role);
   }
 
-  delete(role: Role) {
+  delete(role: RoleDTO) {
     // TODO FUNZIONE DA IMPLEMENTARE
     console.log(role);
   }

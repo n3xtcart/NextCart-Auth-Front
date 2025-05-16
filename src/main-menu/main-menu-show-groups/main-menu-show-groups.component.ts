@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Group} from '../../_model/Group';
+import {GroupDTO} from '../../_model/Group';
 import {HttpService} from '../../_services/http.service';
 import {Router} from '@angular/router';
 
@@ -10,9 +10,9 @@ import {Router} from '@angular/router';
   styleUrl: './main-menu-show-groups.component.css'
 })
 export class MainMenuShowGroupsComponent implements OnInit {
-  private _groups: Group[] = [];
+  private _groups: GroupDTO[] = [];
 
-  get groups(): Group[] {
+  get groups(): GroupDTO[] {
     return this._groups;
   }
 
@@ -21,7 +21,7 @@ export class MainMenuShowGroupsComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.http.token){
-      this.http.checkToken(this.http.token).subscribe({
+      this.http.checkToken().subscribe({
         next: (token) => {
           if(!token)this.router.navigate(["/login"]);
           else{ this.http.loadGroups().subscribe({
@@ -29,7 +29,7 @@ export class MainMenuShowGroupsComponent implements OnInit {
               this._groups = groups;
             },
             error: (error) => {
-              console.log(error.error);
+              console.log(error);
             }
           })}
         },
@@ -41,12 +41,12 @@ export class MainMenuShowGroupsComponent implements OnInit {
 
   }
 
-  select(group: Group) {
+  select(group: GroupDTO) {
     // TODO IMPLEMENTARE FUNZIONE
     console.log(group);
   }
 
-  delete(group: Group) {
+  delete(group: GroupDTO) {
     // TODO IMPLEMENTARE FUNZIONE
     console.group(group);
   }
