@@ -11,19 +11,7 @@ import { catchError } from 'rxjs';
 })
 export class MainMenuComponent {
 
-  ngOnInit(){
-    if(this.service.token){
-      this.service.checkToken().subscribe({
-        next: (token) => {
-          if(!token)this.router.navigate(["/login"]);
-        },
-        error: (error) => {
-          console.log(error.error);
-        }
-      })
-    }else this.router.navigate(["/login"]);
-
-  }
+ 
 
 
 

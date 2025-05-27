@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './main-menu-show-groups.component.html',
   styleUrl: './main-menu-show-groups.component.css'
 })
-export class MainMenuShowGroupsComponent implements OnInit {
+export class MainMenuShowGroupsComponent  {
   private _groups: GroupDTO[] = [];
 
   get groups(): GroupDTO[] {
@@ -19,27 +19,8 @@ export class MainMenuShowGroupsComponent implements OnInit {
   constructor(private http: HttpService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    if(this.http.token){
-      this.http.checkToken().subscribe({
-        next: (token) => {
-          if(!token)this.router.navigate(["/login"]);
-          else{ this.http.loadGroups().subscribe({
-            next: (groups) => {
-              this._groups = groups;
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          })}
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      })
-    }else this.router.navigate(["/login"]);
 
-  }
+
 
   select(group: GroupDTO) {
     // TODO IMPLEMENTARE FUNZIONE

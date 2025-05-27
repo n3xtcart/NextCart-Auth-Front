@@ -9,7 +9,7 @@ import {HttpService} from '../../_services/http.service';
   templateUrl: './main-menu-show-roles.component.html',
   styleUrl: './main-menu-show-roles.component.css'
 })
-export class MainMenuShowRolesComponent implements OnInit {
+export class MainMenuShowRolesComponent {
   private _roles: RoleDTO[] = [];
 
   get roles(): RoleDTO[] {
@@ -19,28 +19,7 @@ export class MainMenuShowRolesComponent implements OnInit {
   constructor(private http: HttpService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    if(this.http.token){
-      this.http.checkToken().subscribe({
-        next: (token) => {
-          if(!token)this.router.navigate(["/login"]);
-          else{ this.http.loadRoles().subscribe({
-            next: (roles) => {
-              this._roles = roles;
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          })}
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      })
-    }else this.router.navigate(["/login"]);
 
-  
-  }
 
 
   select(role: RoleDTO) {

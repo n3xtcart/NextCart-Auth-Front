@@ -22,6 +22,7 @@ export class LoginComponent {
       if(data){
         let token: Token = data as unknown as Token;
         this.service.token=token;
+        localStorage.setItem("token",JSON.stringify(token));
         this.router.navigate(["/main-menu"]);
       }
     })

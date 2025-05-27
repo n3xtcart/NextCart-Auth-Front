@@ -10,7 +10,7 @@ import { EMPTY, switchMap } from 'rxjs';
   templateUrl: './main-menu-show-users.component.html',
   styleUrl: './main-menu-show-users.component.css'
 })
-export class MainMenuShowUsersComponent implements OnInit {
+export class MainMenuShowUsersComponent {
   private _users: UserDTO[] = [];
 
   get users(): UserDTO[] {
@@ -20,25 +20,7 @@ export class MainMenuShowUsersComponent implements OnInit {
   constructor(private http: HttpService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    if (!this.http.token) {
-       this.router.navigate(["/login"]);
-       return;
-    }
- 
-    this.http.checkToken().pipe(
-       switchMap(token => {
-          if (!token) {
-             this.router.navigate(["/login"]);
-             return EMPTY;
-          }
-          return this.http.loadUsers();
-       })
-    ).subscribe({
-       next: users => this._users = users,
-       error: error => console.error("Errore nel caricamento utenti:", error)
-    });
- }
+
 
   select(user: UserDTO) {
     // TODO FUNZIONE DA IMPLEMENTARE

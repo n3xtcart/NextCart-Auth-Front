@@ -6,6 +6,8 @@ import {GroupDTO} from '../_model/Group';
 import {RoleDTO} from '../_model/Role';
 import { Token } from '../_model/Token';
 import { LoginInfo } from '../_model/LoginInfo';
+import { UserRegistration } from '../_model/UserRegistration';
+import { message } from '../_model/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +23,12 @@ export class HttpService {
     let info:LoginInfo=new LoginInfo;
     info.email=email;
     info.password=password;
-    return this.http.post<Token>("http://localhost:8080/login",info).pipe(
+    return this.http.post<Token>("http://localhost:8080/users/login",info).pipe(
       tap(()=>{
         console.log("login in corso per email : "+info.email);
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+       alert(error.error)
         return [];
       })
     );
@@ -41,14 +43,24 @@ export class HttpService {
         console.log("check token");
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+        alert(error.error)
         return of(false);
       })
     );;
 
   }
 
-  register() {
+  register(user: UserRegistration):Observable<message> {
+    console.log(user)
+    return this.http.post<string>("http://localhost:8080/users/register",user).pipe(
+      tap(resp=>{
+        console.log("register user , resp:"+resp);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error)
+        return of(error.error);
+      })
+    );;
 
   }
 
