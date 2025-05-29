@@ -8,11 +8,50 @@ import { Token } from '../_model/Token';
 import { LoginInfo } from '../_model/LoginInfo';
 import { UserRegistration } from '../_model/UserRegistration';
 import { message } from '../_model/Message';
+import { Page } from '../main-menu/main-menu-show-groups/Page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+  getAllGroupsPag(pageIndex: number, pageSize: number): Observable<Page<GroupDTO>|never[]>  {
+    const headers = new HttpHeaders({ Authorization: `${JSON.stringify(this.token)}` });
+    return this.http.get<Page<GroupDTO>>(`http://localhost:8080/groups/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
+      tap(groups => {
+        console.log("Groups loaded: ", groups);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error);
+        return of([]);
+      })
+    );
+  }
+
+    getAllUsersPag(pageIndex: number, pageSize: number): Observable<Page<UserDTO>|never[]>  {
+    const headers = new HttpHeaders({ Authorization: `${JSON.stringify(this.token)}` });
+    return this.http.get<Page<UserDTO>>(`http://localhost:8080/users/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
+      tap(groups => {
+        console.log("Groups loaded: ", groups);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error);
+        return of([]);
+      })
+    );
+  }
+
+   getAllRolesPag(pageIndex: number, pageSize: number): Observable<Page<RoleDTO>|never[]>  {
+    const headers = new HttpHeaders({ Authorization: `${JSON.stringify(this.token)}` });
+    return this.http.get<Page<RoleDTO>>(`http://localhost:8080/roles/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
+      tap(groups => {
+        console.log("Groups loaded: ", groups);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error);
+        return of([]);
+      })
+    );
+  }
 
   constructor(private http: HttpClient) {
   }
