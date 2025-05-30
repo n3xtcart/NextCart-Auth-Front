@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../_services/http.service';
-import { Token } from '../_model/Token';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,14 +17,16 @@ export class LoginComponent {
   }
 
   login(){
-    this.service.login(this.email,this.password).subscribe(data=>{
-      if(data){
-        let token: Token = data as unknown as Token;
-        this.service.token=token;
-        localStorage.setItem("token",JSON.stringify(token));
-        this.router.navigate(["/main-menu"]);
+    this.service.login(this.email,this.password).subscribe({
+      next: (resp) => {
+        console.log('Login successful:', resp);
+        this.router.navigate(['/main-menu']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        alert('Login failed. Please check your credentials.');
       }
-    })
+    });
 
   }
 
