@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConfirmRegistrationService} from '../_services/confirm-registration.service';
 import {NgIf} from '@angular/common';
-import {UserRegistrationReq} from '../_model/UserRegistrationReq';
 
 @Component({
   selector: 'app-verify-registration',
@@ -31,8 +30,7 @@ export class VerifyRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.routes.queryParams.subscribe((params) => {
       let tokenToVerify: string = params['token']
-      let token: UserRegistrationReq = {token: tokenToVerify}
-      this.confirmRegistrationService.completeRegistration(token).subscribe({
+      this.confirmRegistrationService.completeRegistration(tokenToVerify).subscribe({
         next: (_: any) => this.success = true,
         error: (error: any) => {
           // @ts-ignore
