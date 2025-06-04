@@ -24,7 +24,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userToRegister = {email: '', name: '', password: '', surname: '', group: {id: 0,roleDTO: {id: 0,priority: 0, admin: false,descrizione: ''}}};
     this.service.loadGroups().subscribe((groups) => {
       this.groups = groups;
       

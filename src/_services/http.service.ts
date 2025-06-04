@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class HttpService {
+  timeoutId!: any;
 
 
   constructor(private http: HttpClient,private cookieService: CookieService) {
@@ -54,6 +55,11 @@ export class HttpService {
       this.tokens = { accessToken: '', refreshToken: '' }; // Default empty tokens
     }
     return new HttpHeaders({ Authorization: `Bearer ${this.tokens.refreshToken}` });
+  }
+
+
+  showTimeout(): void {
+    console.log("Timeout ID: ", this.timeoutId);
   }
 
  
@@ -128,14 +134,19 @@ refreshToken(): Observable<Tokens> {
         console.log("login in corso per email : " + info.email);
         this.tokens = tokens;
         this.cookieService.set('tokens', JSON.stringify(this.tokens));
-        setTimeout(this.refreshToken,JSON.parse(atob(tokens.accessToken.split('.')[1])) - Math.floor(Date.now() / 1000) * 1000 - 120000);
-      }),
+        const timeout = JSON.parse(atob(tokens.accessToken.split('.')[1])).exp - 100; 
+console.log("Timeout calcolato: ", timeout);
+     this.timeoutId = setTimeout(() => {
+    this.refreshToken;
+    console.log("Refresh token chiamato!");
+}, timeout);
+
+this.showTimeout() }),
       catchError((error: HttpErrorResponse) => {
         alert(error.error)
         return [];
       })
     );
-
   }
 
   checkToken(): Observable<boolean> {
