@@ -1,6 +1,6 @@
 import {RoleDTO} from "./RoleDTO"
 
 export interface GroupDTO {
-  id: number
+  id?: number
   roleDTO: RoleDTO[]
 }

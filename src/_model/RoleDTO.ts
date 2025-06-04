@@ -1,5 +1,5 @@
 export interface RoleDTO {
-  id: number
+  id?: number
   priority: number
   admin: boolean
   descrizione: string

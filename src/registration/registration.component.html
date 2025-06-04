@@ -11,16 +11,16 @@
           <div class="col p-3 h-75">
             <label for="name">Nome:</label><br>
             <input id="name" class="form-control is-invalid" type="text" placeholder="Mario" name="name"
-                   [(ngModel)]="userToRegister.name" required>
+                   [(ngModel)]="userToRegister.nome" required>
             <label for="surname">Cognome:</label><br>
             <input id="surname" class="form-control is-invalid" type="text" placeholder="Rossi" name="surname"
-                   [(ngModel)]="userToRegister.surname" required>
+                   [(ngModel)]="userToRegister.cognome" required>
                    <label for="group">Gruppo:</label><br>
                    <select name="group" class="form-select is-invalid">
                     @for (group of groups; track $index) {
-           
-                       <option [value]="group" (click)="userToRegister.group= group">
-                         {{group.roleDTO.admin}}: {{group.roleDTO.priority}} 
+
+                       <option [value]="group" (click)="userToRegister.groupDTO = group">
+                         {{group.roleDTO}}: {{group.roleDTO}}
                     }
                    </select>
           </div>

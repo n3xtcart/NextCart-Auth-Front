@@ -18,7 +18,7 @@
           @for (user of users; track user.id) {
             <tr>
               <td>{{ user.id }}</td>
-              <td>{{user.groupDTO.id}}</td>
+              <td>{{ user.ruoli }}</td>
               <td>
                 <button class="btn btn-info" type="button" (click)="select(user)">Seleziona</button>
               </td>
@@ -37,4 +37,4 @@
                [pageSize]="pageSize"
                [pageIndex]="pageIndex"
                [pageSizeOptions]="[5, 10, 20]"
-                              (page)="onPageChange($event)"></mat-paginator>
+               (page)="onPageChange($event)"></mat-paginator>
