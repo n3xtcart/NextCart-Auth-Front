@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupDTO} from '../../_model/Group';
+import {GroupDTO} from '../../_model/GroupDTO';
 import {HttpService} from '../../_services/http.service';
 import {Router} from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -22,7 +22,7 @@ export class MainMenuShowGroupsComponent  {
   get groups(): GroupDTO[] {
     return this._groups;
   }
-  
+
 
   constructor(private http: HttpService, private router: Router) {
     http.getAllGroupsPag(this.pageIndex, this.pageSize).subscribe((data: Page<GroupDTO> | never[]) => {
@@ -66,7 +66,7 @@ export class MainMenuShowGroupsComponent  {
       } else {
         this._groups = data.content;
         this.totalElements = data.totalElement;
-        
+
       }
       console.log("Groups loaded: ", this._groups);
     });

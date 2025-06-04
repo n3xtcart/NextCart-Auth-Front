@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserDTO} from '../../_model/User';
+import {UserDTO} from '../../_model/UserDTO';
 import {HttpService} from '../../_services/http.service';
 import {Router} from '@angular/router';
 import { EMPTY, switchMap } from 'rxjs';
@@ -37,10 +37,10 @@ export class MainMenuShowUsersComponent {
           }
           console.log("Users loaded: ", this._users);
         });
-  
-  
-  
-        
+
+
+
+
       }
 
 
@@ -68,7 +68,7 @@ export class MainMenuShowUsersComponent {
         } else {
           this._users = data.content;
           this.totalElements = data.totalElement;
-          
+
         }
         console.log("Roles loaded: ", this._users);
       });

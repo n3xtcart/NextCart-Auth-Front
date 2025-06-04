@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RoleDTO} from '../../_model/Role';
+import {RoleDTO} from '../../_model/RoleDTO';
 import {Router} from '@angular/router';
 import {HttpService} from '../../_services/http.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -40,7 +40,7 @@ export class MainMenuShowRolesComponent {
 
 
 
-      
+
     }
 
   onPageChange(event: any) {
@@ -55,7 +55,7 @@ export class MainMenuShowRolesComponent {
       } else {
         this._roles = data.content;
         this.totalElements = data.totalElement;
-        
+
       }
       console.log("Roles loaded: ", this._roles);
     });
