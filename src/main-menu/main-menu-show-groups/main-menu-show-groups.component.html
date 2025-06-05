@@ -17,9 +17,9 @@
           @for (group of groups; track group.id) {
             <tr>
               <td>{{ group.id }}</td>
-              <td>{{ group.roleDTO }}</td>
-              <td>{{ group.roleDTO }}</td>
-              <td>{{ group.roleDTO }}</td>
+              <!-- <td>{{ group.roleDTO.descrizione }}</td>
+              <td>{{ group.roleDTO.priority }}</td>
+              <td>{{ group.roleDTO.admin }}</td> -->
               <td>
                 <button class="btn btn-info" type="button" (click)="select(group)">Seleziona</button>
               </td>
@@ -37,4 +37,4 @@
                [pageSize]="pageSize"
                [pageIndex]="pageIndex"
                [pageSizeOptions]="[5, 10, 20]"
-               (page)="onPageChange($event)"></mat-paginator>
+                              (page)="onPageChange($event)"></mat-paginator>
