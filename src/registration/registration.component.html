@@ -6,7 +6,7 @@
       <h1>FaiSpesa</h1>
       <p>Registrati</p>
       <!--    TODO INSERIRE LA LOGICA DI CONTROLLO DI VALIDITà  -->
-      <form action="#" class="was-validated">
+      <!--<form action="#" class="was-validated">
         <div class="row mb-3">
           <div class="col p-3 h-75">
             <label for="name">Nome:</label><br>
@@ -18,9 +18,9 @@
                    <label for="group">Gruppo:</label><br>
                    <select name="group" class="form-select is-invalid">
                     @for (group of groups; track $index) {
-           
+
                        <option [value]="group" (click)="userToRegister.group= group">
-                         <!-- {{group.roleDTO.admin}}: {{group.roleDTO.priority}}  -->
+                         &lt;!&ndash; {{group.roleDTO.admin}}: {{group.roleDTO.priority}}  &ndash;&gt;
                     }
                    </select>
           </div>
@@ -40,7 +40,7 @@
         </div>
         <button class="bg-primary bg-gradient text-light rounded-3 w-75 border-1" (click)="register()">Registrati
         </button>
-      </form>
+      </form>-->
       <div class="register">oppure <a [routerLink]="'/login'">Torna al Login</a>
       </div>
     </div>
