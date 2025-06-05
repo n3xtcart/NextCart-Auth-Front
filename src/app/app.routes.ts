@@ -6,7 +6,6 @@ import {MainMenuComponent} from '../main-menu/main-menu.component';
 import {MainMenuShowGroupsComponent} from '../main-menu/main-menu-show-groups/main-menu-show-groups.component';
 import {MainMenuShowRolesComponent} from '../main-menu/main-menu-show-roles/main-menu-show-roles.component';
 import {MainMenuShowUsersComponent} from '../main-menu/main-menu-show-users/main-menu-show-users.component';
-import {CreateUserComponent} from './create-user/create-user.component';
 import {AuthGuard} from './AuthGurd';
 
 export const routes: Routes = [
@@ -41,11 +40,6 @@ export const routes: Routes = [
   {
     path: 'main-menu/users',
     component: MainMenuShowUsersComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "createUser",
-    component: CreateUserComponent,
     canActivate: [AuthGuard]
   }
 ];
