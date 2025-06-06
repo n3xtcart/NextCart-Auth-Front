@@ -87,7 +87,7 @@ refreshToken(): Observable<Tokens> {
 
     getAllGroupsPag(pageIndex: number, pageSize: number): Observable<Page<GroupDTO> | never[]> {
       const headers = this.getHeaderAuth();
-    return this.http.get<Page<GroupDTO>>(`http://localhost:8080/groups/paginated/${pageIndex}/${pageSize}`, {
+    return this.http.get<Page<GroupDTO>>(`http://localhost:8080/admin/groups/paginated/${pageIndex}/${pageSize}`, {
       headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
@@ -101,7 +101,7 @@ refreshToken(): Observable<Tokens> {
 
   getAllUsersPag(pageIndex: number, pageSize: number): Observable<Page<UserDTO> | never[]> {
       const headers = this.getHeaderAuth();
-    return this.http.get<Page<UserDTO>>(`http://localhost:8080/users/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
+    return this.http.get<Page<UserDTO>>(`http://localhost:8080/admin/users/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
       }),
@@ -114,7 +114,7 @@ refreshToken(): Observable<Tokens> {
 
   getAllRolesPag(pageIndex: number, pageSize: number): Observable<Page<RoleDTO> | never[]> {
       const headers = this.getHeaderAuth();
-    return this.http.get<Page<RoleDTO>>(`http://localhost:8080/roles/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
+    return this.http.get<Page<RoleDTO>>(`http://localhost:8080/admin/roles/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
       }),
