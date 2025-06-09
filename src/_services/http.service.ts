@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, Observable, of, tap} from 'rxjs';
 import {LoginInfo} from '../_model/LoginInfo';
-import {Page} from '../main-menu/main-menu-show-groups/Page';
+import {Page} from '../_model/Page';
 import {CookieService} from 'ngx-cookie-service';
 import {TokenDTO} from '../_model/TokenDTO';
 import {GroupDTO} from '../_model/GroupDTO';

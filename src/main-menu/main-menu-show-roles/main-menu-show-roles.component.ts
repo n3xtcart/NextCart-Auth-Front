@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RoleDTO} from '../../_model/RoleDTO';
 import {Router} from '@angular/router';
 import {HttpService} from '../../_services/http.service';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { Page } from '../main-menu-show-groups/Page';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {Page} from '../../_model/Page';
 
 @Component({
   selector: 'app-main-menu-show-roles',
@@ -14,34 +14,31 @@ import { Page } from '../main-menu-show-groups/Page';
 export class MainMenuShowRolesComponent {
   private _roles: RoleDTO[] = [];
 
-                 totalElements = 0;
+  totalElements = 0;
   pageSize = 10;
   pageIndex = 0;
-  totalPages: number=0;
+  totalPages: number = 0;
+
   get roles(): RoleDTO[] {
     return this._roles;
   }
 
-   constructor(private http: HttpService, private router: Router) {
-      http.getAllRolesPag(this.pageIndex, this.pageSize).subscribe((data: Page<RoleDTO> | never[]) => {
-        if (!data) return;
-        if (Array.isArray(data)) {
-          this._roles = [];
-          this.totalElements = 0;
-        } else {
-          this._roles = data.content;
-          this.totalElements = data.totalElement;
-          console.log("Total elements: ", this.totalElements);
-          this.pageSize = data.size;
-          this.totalPages = data.totalPages;
-        }
-        console.log("Groups loaded: ", this._roles);
-      });
-
-
-
-
-    }
+  constructor(private http: HttpService, private router: Router) {
+    http.getAllRolesPag(this.pageIndex, this.pageSize).subscribe((data: Page<RoleDTO> | never[]) => {
+      if (!data) return;
+      if (Array.isArray(data)) {
+        this._roles = [];
+        this.totalElements = 0;
+      } else {
+        this._roles = data.content;
+        this.totalElements = data.totalElements;
+        console.log("Total elements: ", this.totalElements);
+        this.pageSize = data.size;
+        this.totalPages = data.totalPages;
+      }
+      console.log("Groups loaded: ", this._roles);
+    });
+  }
 
   onPageChange(event: any) {
     this.pageIndex = event.pageIndex;
@@ -54,17 +51,16 @@ export class MainMenuShowRolesComponent {
         this.totalElements = 0;
       } else {
         this._roles = data.content;
-        this.totalElements = data.totalElement;
-
+        this.totalElements = data.totalElements;
       }
       console.log("Roles loaded: ", this._roles);
     });
-}
+  }
 
 
   select(role: RoleDTO) {
-    // TODO FUNZIONE DA IMPLEMENTARE
     console.log(role);
+    this.router.navigate([`/main-menu/roles/${role.id}`]);
   }
 
   delete(role: RoleDTO) {

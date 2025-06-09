@@ -6,9 +6,9 @@
         <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Role</th>
-          <th scope="col">Priority</th>
-          <th scope="col">IsAdmin</th>
+          @for (_ of [].constructor(maxRole); track $index) {
+            <th scope="col">Role {{ $index + 1 }}</th>
+          }
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
@@ -17,9 +17,36 @@
           @for (group of groups; track group.id) {
             <tr>
               <td>{{ group.id }}</td>
-              <!-- <td>{{ group.roleDTO.descrizione }}</td>
-              <td>{{ group.roleDTO.priority }}</td>
-              <td>{{ group.roleDTO.admin }}</td> -->
+              @for (role of group.roleDTO; track $index) {
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                      Info
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item">
+                        <p>
+                          Breve descrizione,
+                          ID: {{ role.id }}<br>
+                          ADMIN: {{ role.admin }}
+                        </p></li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <!-- TODO ricontrollo end poinst  -->
+                      <li><a class="dropdown-item" [routerLink]="'/main-menu/roles/'+ role.id">Mostra dettaglio</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              }
+              @if (group.roleDTO.length < maxRole) {
+                @for (_ of [].constructor(maxRole - group.roleDTO.length); track null) {
+                  <td></td>
+                }
+              }
+
               <td>
                 <button class="btn btn-info" type="button" (click)="select(group)">Seleziona</button>
               </td>
@@ -37,4 +64,4 @@
                [pageSize]="pageSize"
                [pageIndex]="pageIndex"
                [pageSizeOptions]="[5, 10, 20]"
-                              (page)="onPageChange($event)"></mat-paginator>
+               (page)="onPageChange($event)"></mat-paginator>

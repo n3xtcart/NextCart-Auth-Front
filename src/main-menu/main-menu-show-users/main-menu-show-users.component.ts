@@ -3,7 +3,7 @@ import {UserDTO} from '../../_model/UserDTO';
 import {HttpService} from '../../_services/http.service';
 import {Router} from '@angular/router';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {Page} from '../main-menu-show-groups/Page';
+import {Page} from '../../_model/Page';
 
 @Component({
   selector: 'app-main-menu-show-users',
@@ -30,7 +30,7 @@ export class MainMenuShowUsersComponent {
         this.totalElements = 0;
       } else {
         this._users = data.content;
-        this.totalElements = data.totalElement;
+        this.totalElements = data.totalElements;
         console.log("Total elements: ", this.totalElements);
         this.pageSize = data.size;
         this.totalPages = data.totalPages;
@@ -64,7 +64,7 @@ export class MainMenuShowUsersComponent {
         this.totalElements = 0;
       } else {
         this._users = data.content;
-        this.totalElements = data.totalElement;
+        this.totalElements = data.totalElements;
 
       }
       console.log("Roles loaded: ", this._users);
