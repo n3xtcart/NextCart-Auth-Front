@@ -45,8 +45,8 @@ export class MainMenuShowGroupsComponent {
   }
 
   select(group: GroupDTO) {
-    // TODO IMPLEMENTARE FUNZIONE
     console.log(group);
+    this.router.navigate(['/detail/group/' + group.id]);
   }
 
   delete(group: GroupDTO) {

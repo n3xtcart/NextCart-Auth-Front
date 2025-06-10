@@ -1,0 +1,37 @@
+<div class="container-fluid mt-1 text-center">
+  <div class="card">
+    <h5 class="card-header">Id gruppo: {{ group.id }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Ruoli</h5>
+      <div class="container-fluid">
+        <div class="row row-cols-2">
+          @for (role of group.roleDTO; track $index) {
+            <div class="card col-2 p-1 m-1" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Ruolo</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Id {{ role.id }}</h6>
+                <p class="card-text">
+                  @if (role.admin) {
+                    <strong>Amministratore</strong> con priorità: <strong>{{ role.priority }}</strong>
+                  } @else {
+                    <strong>Utente</strong>
+                  }
+                  <br>
+                  {{ role.descrizione }}
+                </p>
+                <a [routerLink]="'/detail/role/' + role.id" class="card-link">Dettaglio ruolo</a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-2 p-3">
+    <button type="button" class="btn btn-primary m-1" (click)="modify()">Modifica</button>
+    <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
+  </div>
+
+  <!--  TODO fai apparire il form di modifica del gruppo-->
+</div>

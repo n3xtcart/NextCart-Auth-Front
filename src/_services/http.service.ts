@@ -208,6 +208,11 @@ export class HttpService {
     const headers = this.getHeaderAuth();
     return this.http.get<RoleDTO[]>("http://localhost:8080/roles", {headers})
   }
+
+  getGroupById(id: number): Observable<GroupDTO> {
+    // TODO implementare funzione
+    return this.http.get<GroupDTO>('http://localhost:8080/groups/' + id).pipe()
+  }
 }
 
 
