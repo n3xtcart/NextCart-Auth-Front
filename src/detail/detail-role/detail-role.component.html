@@ -6,12 +6,15 @@
     </div>
     <ul class="list-group list-group-flush p-3">
       <li class="list-group-item p-3">
+        <strong>
         @if (role.admin) {
-          <strong>Amministratore</strong> con priorità: <strong>{{ role.priority }}</strong>
+          Amministratore
         } @else {
-          <strong>Utente</strong>
+          Utente
         }
+        </strong>
       </li>
+      <li class="list-group-item p-3">Priorità: <strong>{{ role.priority }}</strong></li>
       <li class="list-group-item p-3"> {{ role.descrizione }}</li>
     </ul>
   </div>
