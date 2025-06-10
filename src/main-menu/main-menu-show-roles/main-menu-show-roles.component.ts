@@ -60,7 +60,7 @@ export class MainMenuShowRolesComponent {
 
   select(role: RoleDTO) {
     console.log(role);
-    this.router.navigate([`/main-menu/roles/${role.id}`]);
+    this.router.navigate([`/detail/role/${role.id}`]);
   }
 
   delete(role: RoleDTO) {

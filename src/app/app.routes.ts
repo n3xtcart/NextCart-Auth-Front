@@ -8,6 +8,7 @@ import {MainMenuShowRolesComponent} from '../main-menu/main-menu-show-roles/main
 import {MainMenuShowUsersComponent} from '../main-menu/main-menu-show-users/main-menu-show-users.component';
 import {AuthGuard} from './AuthGurd';
 import {DetailGroupComponent} from '../detail/detail-group/detail-group.component';
+import {DetailRoleComponent} from '../detail/detail-role/detail-role.component';
 
 export const routes: Routes = [
   {
@@ -46,5 +47,9 @@ export const routes: Routes = [
   {
     path: 'detail/group/:id',
     component: DetailGroupComponent
+  },
+  {
+    path: 'detail/role/:id',
+    component: DetailRoleComponent
   }
 ];

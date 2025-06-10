@@ -10,15 +10,6 @@
               <div class="card-body">
                 <h5 class="card-title">Ruolo</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">Id {{ role.id }}</h6>
-                <p class="card-text">
-                  @if (role.admin) {
-                    <strong>Amministratore</strong> con priorità: <strong>{{ role.priority }}</strong>
-                  } @else {
-                    <strong>Utente</strong>
-                  }
-                  <br>
-                  {{ role.descrizione }}
-                </p>
                 <a [routerLink]="'/detail/role/' + role.id" class="card-link">Dettaglio ruolo</a>
               </div>
             </div>
