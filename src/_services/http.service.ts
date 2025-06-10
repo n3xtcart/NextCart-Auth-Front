@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {catchError, Observable, of, tap} from 'rxjs';
-import {LoginInfo} from '../_model/LoginInfo';
-import {Page} from '../_model/Page';
-import {CookieService} from 'ngx-cookie-service';
-import {TokenDTO} from '../_model/TokenDTO';
-import {GroupDTO} from '../_model/GroupDTO';
-import {UserDTO} from '../_model/UserDTO';
-import {RoleDTO} from '../_model/RoleDTO';
-import {Message} from '../_model/Message';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { UserDTO } from '../_model/User';
+import { catchError, Observable, of, tap } from 'rxjs';
+import { GroupDTO } from '../_model/Group';
+import { RoleDTO } from '../_model/Role';
+import {  Tokens } from '../_model/Tokens';
+import { LoginInfo } from '../_model/LoginInfo';
+import { UserRegistration } from '../_model/UserRegistration';
+import { message } from '../_model/Message';
+import { Page } from '../main-menu/main-menu-show-groups/Page';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class HttpService {
   timeoutId!: any;
 
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient,private cookieService: CookieService) {
     this.getHeaderAuth();
   }
 
-  tokens!: TokenDTO;
+  tokens!: Tokens;
 
   getHeaderAuth(): HttpHeaders {
     const tokenString = this.cookieService.get('tokens');
@@ -35,12 +36,11 @@ export class HttpService {
       }
     } else {
       console.warn('No token found in cookies');
-      this.tokens = {accessToken: '', refreshToken: ''}; // Default empty tokens
+      this.tokens = { accessToken: '', refreshToken: '' }; // Default empty tokens
     }
-    return new HttpHeaders({Authorization: `Bearer ${this.tokens.accessToken}`});
+    return new HttpHeaders({ Authorization: `Bearer ${this.tokens.accessToken}` });
   }
-
-  getHeaderRefresh(): HttpHeaders {
+   getHeaderRefresh(): HttpHeaders {
     const tokenString = this.cookieService.get('tokens');
     if (tokenString) {
       try {
@@ -52,9 +52,9 @@ export class HttpService {
       }
     } else {
       console.warn('No token found in cookies');
-      this.tokens = {accessToken: '', refreshToken: ''}; // Default empty tokens
+      this.tokens = { accessToken: '', refreshToken: '' }; // Default empty tokens
     }
-    return new HttpHeaders({Authorization: `Bearer ${this.tokens.refreshToken}`});
+    return new HttpHeaders({ Authorization: `Bearer ${this.tokens.refreshToken}` });
   }
 
 
@@ -62,11 +62,16 @@ export class HttpService {
     console.log("Timeout ID: ", this.timeoutId);
   }
 
+ 
 
-  refreshToken(): Observable<TokenDTO> {
+
+
+
+
+refreshToken(): Observable<Tokens> {
     const headers = this.getHeaderRefresh();
-    return this.http.post<TokenDTO>("http://localhost:8080/tokens/refresh", {}, {headers}).pipe(
-      tap((tokens: TokenDTO) => {
+    return this.http.post<Tokens>("http://localhost:8080/tokens/refresh", {}, { headers }).pipe(
+      tap((tokens: Tokens) => {
         console.log("Token refreshed successfully: ", tokens);
         this.tokens = tokens;
         this.cookieService.set('tokens', JSON.stringify(this.tokens));
@@ -74,17 +79,16 @@ export class HttpService {
       catchError((error: HttpErrorResponse) => {
         console.error("Error refreshing token: ", error);
         alert(error.error);
-        return of({accessToken: '', refreshToken: ''});
+        return of({ accessToken: '', refreshToken: '' });
       })
     );
 
-  }
+}
 
-  getAllGroupsPag(pageIndex: number, pageSize: number): Observable<Page<GroupDTO> | never[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<Page<GroupDTO>>(`http://localhost:8080/groups/paginated/${pageIndex}/${pageSize}`, {
-      headers
-    }).pipe(
+    getAllGroupsPag(pageIndex: number, pageSize: number): Observable<Page<GroupDTO> | never[]> {
+      const headers = this.getHeaderAuth();
+    return this.http.get<Page<GroupDTO>>(`http://localhost:8080/admin/groups/paginated/${pageIndex}/${pageSize}`, {
+      headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
       }),
@@ -96,8 +100,8 @@ export class HttpService {
   }
 
   getAllUsersPag(pageIndex: number, pageSize: number): Observable<Page<UserDTO> | never[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<Page<UserDTO>>(`http://localhost:8080/users/paginated/${pageIndex}/${pageSize}`, {headers}).pipe(
+      const headers = this.getHeaderAuth();
+    return this.http.get<Page<UserDTO>>(`http://localhost:8080/admin/users/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
       }),
@@ -109,8 +113,8 @@ export class HttpService {
   }
 
   getAllRolesPag(pageIndex: number, pageSize: number): Observable<Page<RoleDTO> | never[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<Page<RoleDTO>>(`http://localhost:8080/roles/paginated/${pageIndex}/${pageSize}`, {headers}).pipe(
+      const headers = this.getHeaderAuth();
+    return this.http.get<Page<RoleDTO>>(`http://localhost:8080/admin/roles/paginated/${pageIndex}/${pageSize}`, { headers }).pipe(
       tap(groups => {
         console.log("Groups loaded: ", groups);
       }),
@@ -121,25 +125,23 @@ export class HttpService {
     );
   }
 
-  login(email: string, password: string): Observable<TokenDTO> {
-    let info: LoginInfo = {
-      email: email,
-      password: password,
-    }
-    return this.http.post<TokenDTO>("http://localhost:8080/users/login", info).pipe(
+  login(email: string, password: string): Observable<Tokens> {
+    let info: LoginInfo = new LoginInfo;
+    info.email = email;
+    info.password = password;
+    return this.http.post<Tokens>("http://localhost:8080/users/login", info).pipe(
       tap((tokens) => {
         console.log("login in corso per email : " + info.email);
         this.tokens = tokens;
         this.cookieService.set('tokens', JSON.stringify(this.tokens));
-        const timeout = JSON.parse(atob(tokens.accessToken.split('.')[1])).exp - 100;
-        console.log("Timeout calcolato: ", timeout);
-        this.timeoutId = setTimeout(() => {
-          this.refreshToken;
-          console.log("Refresh token chiamato!");
-        }, timeout);
+        const timeout = JSON.parse(atob(tokens.accessToken.split('.')[1])).exp - 100; 
+console.log("Timeout calcolato: ", timeout);
+     this.timeoutId = setTimeout(() => {
+    this.refreshToken;
+    console.log("Refresh token chiamato!");
+}, timeout);
 
-        this.showTimeout()
-      }),
+this.showTimeout() }),
       catchError((error: HttpErrorResponse) => {
         alert(error.error)
         return [];
@@ -148,8 +150,8 @@ export class HttpService {
   }
 
   checkToken(): Observable<boolean> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<boolean>("http://localhost:8080/tokens/checkToken", {headers}).pipe(
+      const headers = this.getHeaderAuth();
+    return this.http.get<boolean>("http://localhost:8080/tokens/checkToken", { headers }).pipe(
       tap(() => {
         console.log("check token");
       }),
@@ -157,12 +159,11 @@ export class HttpService {
         alert(error.error)
         return of(false);
       })
-    );
-    ;
+    );;
 
   }
 
-  register(user: UserDTO): Observable<Message> {
+  register(user: UserRegistration): Observable<message> {
     console.log(user)
     return this.http.post<string>("http://localhost:8080/users/register", user).pipe(
       tap(resp => {
@@ -172,14 +173,13 @@ export class HttpService {
         alert(error.error)
         return of(error.error);
       })
-    );
-    ;
+    );;
 
   }
 
-  createUser(user: UserDTO): Observable<Message> {
-    const headers = this.getHeaderAuth();
-    return this.http.post<string>("http://localhost:8080/users/create", user, {headers}).pipe(
+   createUser(user: UserRegistration): Observable<message> {
+      const headers = this.getHeaderAuth();
+    return this.http.post<string>("http://localhost:8080/users/create", user,{headers}).pipe(
       tap(resp => {
         console.log("register user , resp:" + resp);
       }),
@@ -187,31 +187,25 @@ export class HttpService {
         alert(error.error)
         return of(error.error);
       })
-    );
-    ;
+    );;
 
   }
 
   // TODO ENDPOINT DA DEFINIRE
 
   loadUsers(): Observable<UserDTO[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<UserDTO[]>("http://localhost:8080/users", {headers})
+      const headers = this.getHeaderAuth();
+    return this.http.get<UserDTO[]>("http://localhost:8080/users", { headers })
   }
 
   loadGroups(): Observable<GroupDTO[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<GroupDTO[]>("http://localhost:8080/groups", {headers})
+      const headers = this.getHeaderAuth();
+    return this.http.get<GroupDTO[]>("http://localhost:8080/groups", { headers })
   }
 
   loadRoles(): Observable<RoleDTO[]> {
-    const headers = this.getHeaderAuth();
-    return this.http.get<RoleDTO[]>("http://localhost:8080/roles", {headers})
-  }
-
-  getGroupById(id: number): Observable<GroupDTO> {
-    // TODO implementare funzione
-    return this.http.get<GroupDTO>('http://localhost:8080/groups/' + id).pipe()
+      const headers = this.getHeaderAuth();
+    return this.http.get<RoleDTO[]>("http://localhost:8080/roles", { headers })
   }
 }
 
