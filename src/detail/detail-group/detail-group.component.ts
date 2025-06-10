@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpService} from '../../_services/http.service';
 import {GroupDTO} from '../../_model/GroupDTO';
 import {ActivatedRoute, RouterLink} from '@angular/router';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-detail-group',
@@ -32,4 +33,6 @@ export class DetailGroupComponent {
   delete() {
     // TODO cancella
   }
+
+  protected readonly formatDate = formatDate;
 }

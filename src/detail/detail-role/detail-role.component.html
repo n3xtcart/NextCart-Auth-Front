@@ -5,17 +5,26 @@
       <p class="card-subtitle">Id: {{ role.id }}</p>
     </div>
     <ul class="list-group list-group-flush p-3">
-      <li class="list-group-item p-3">
+      <li class="list-group-item p-2">
+        Ultima modifica: {{ formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+      </li>
+      <li class="list-group-item p-2">
+        Data creazione: {{ formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+      </li>
+      <li class="list-group-item p-2">
+        Id Utente che ha effettuato la creazione: {{ role.creationUser }}
+      </li>
+      <li class="list-group-item p-2">
         <strong>
-        @if (role.admin) {
-          Amministratore
-        } @else {
-          Utente
-        }
+          @if (role.admin) {
+            Amministratore
+          } @else {
+            Utente
+          }
         </strong>
       </li>
-      <li class="list-group-item p-3">Priorità: <strong>{{ role.priority }}</strong></li>
-      <li class="list-group-item p-3"> {{ role.descrizione }}</li>
+      <li class="list-group-item p-2">Priorità: <strong>{{ role.priority }}</strong></li>
+      <li class="list-group-item p-2"> {{ role.descrizione }}</li>
     </ul>
   </div>
 

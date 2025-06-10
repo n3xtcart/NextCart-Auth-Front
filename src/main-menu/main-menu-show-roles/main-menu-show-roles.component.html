@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container text-center">
   <div class="row">
     <div class="col">
 
@@ -6,9 +6,12 @@
         <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Role</th>
+          <th scope="col">Ultima Modifica</th>
+          <th scope="col">Data Creazione</th>
+          <th scope="col">Id Utente di creazione</th>
           <th scope="col">Priority</th>
           <th scope="col">IsAdmin</th>
+          <th scope="col">Descrizione</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
@@ -17,9 +20,12 @@
           @for (role of roles; track role.id) {
             <tr>
               <td>{{ role.id }}</td>
-              <td>{{ role.descrizione }}</td>
+              <td> {{ formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}</td>
+              <td>{{ formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US') }}</td>
+              <td>{{ role.creationUser }}</td>
               <td>{{ role.priority }}</td>
               <td>{{ role.admin }}</td>
+              <td>{{ role.descrizione }}</td>
               <td>
                 <button class="btn btn-info" type="button" (click)="select(role)">Seleziona</button>
               </td>
@@ -38,4 +44,4 @@
                [pageSize]="pageSize"
                [pageIndex]="pageIndex"
                [pageSizeOptions]="[5, 10, 20]"
-                              (page)="onPageChange($event)"></mat-paginator>
+               (page)="onPageChange($event)"></mat-paginator>

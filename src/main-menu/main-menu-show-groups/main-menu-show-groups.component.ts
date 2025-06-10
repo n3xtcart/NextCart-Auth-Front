@@ -4,6 +4,7 @@ import {HttpService} from '../../_services/http.service';
 import {Router, RouterLink} from '@angular/router';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {Page} from '../../_model/Page';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-main-menu-show-groups',
@@ -71,4 +72,6 @@ export class MainMenuShowGroupsComponent {
       console.log("Groups loaded: ", this._groups);
     });
   }
+
+  protected readonly formatDate = formatDate;
 }

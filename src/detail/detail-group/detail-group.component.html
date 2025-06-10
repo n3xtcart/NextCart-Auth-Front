@@ -2,20 +2,35 @@
   <div class="card">
     <h5 class="card-header">Id gruppo: {{ group.id }}</h5>
     <div class="card-body">
-      <h5 class="card-title">Ruoli</h5>
-      <div class="container-fluid">
-        <div class="row row-cols-2">
-          @for (role of group.roleDTO; track $index) {
-            <div class="card col-2 p-1 m-1" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Ruolo</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Id {{ role.id }}</h6>
-                <a [routerLink]="'/detail/role/' + role.id" class="card-link">Dettaglio ruolo</a>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item p-2">
+          Ultima modifica: {{ formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+        </li>
+        <li class="list-group-item p-2">
+          Data creazione: {{ formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+        </li>
+        <li class="list-group-item p-2">
+          Id Utente che ha effettuato la creazione: {{ group.creationUser }}
+        </li>
+        <li class="list-group-item p-2">
+          <div>
+            <h5 class="card-title">Ruoli</h5>
+            <div class="container-fluid">
+              <div class="row row-cols-2">
+                @for (role of group.roleDTO; track $index) {
+                  <div class="card col-2 p-1 m-1" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Ruolo</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">Id {{ role.id }}</h6>
+                      <a [routerLink]="'/detail/role/' + role.id" class="card-link">Dettaglio ruolo</a>
+                    </div>
+                  </div>
+                }
               </div>
             </div>
-          }
-        </div>
-      </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 

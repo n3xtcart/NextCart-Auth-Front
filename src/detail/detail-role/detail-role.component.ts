@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {RoleDTO} from '../../_model/RoleDTO';
 import {HttpService} from '../../_services/http.service';
 import {ActivatedRoute} from '@angular/router';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-detail-role',
@@ -25,4 +26,6 @@ export class DetailRoleComponent {
   delete() {
 
   }
+
+    protected readonly formatDate = formatDate;
 }

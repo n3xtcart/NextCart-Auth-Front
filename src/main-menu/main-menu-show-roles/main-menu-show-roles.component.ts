@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {HttpService} from '../../_services/http.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {Page} from '../../_model/Page';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-main-menu-show-roles',
@@ -67,4 +68,6 @@ export class MainMenuShowRolesComponent {
     // TODO FUNZIONE DA IMPLEMENTARE
     console.log(role);
   }
+
+  protected readonly formatDate = formatDate;
 }
