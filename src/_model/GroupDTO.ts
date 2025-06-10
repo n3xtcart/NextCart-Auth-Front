@@ -1,6 +1,6 @@
 import {RoleDTO} from "./RoleDTO"
 
-export interface GroupDTO {
+export interface GroupDTO extends DTO {
   id?: number
   roleDTO: RoleDTO[]
 }
