@@ -4,6 +4,7 @@ import {HttpService} from '../../_services/http.service';
 import {Router} from '@angular/router';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {Page} from '../../_model/Page';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-main-menu-show-users',
@@ -43,8 +44,7 @@ export class MainMenuShowUsersComponent {
 
 
   select(user: UserDTO) {
-    // TODO FUNZIONE DA IMPLEMENTARE
-    console.log(user)
+    this.router.navigate(['/detail/user/' + user.id]);
   }
 
   delete(user: UserDTO) {
@@ -70,4 +70,6 @@ export class MainMenuShowUsersComponent {
       console.log("Roles loaded: ", this._users);
     });
   }
+
+  protected readonly formatDate = formatDate;
 }

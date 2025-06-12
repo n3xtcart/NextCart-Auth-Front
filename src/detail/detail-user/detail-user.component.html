@@ -1,0 +1,54 @@
+<div class="container-fluid text-center mt-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Utente</h5>
+      <p class="card-subtitle">Id: {{ user.id }}</p>
+    </div>
+    <ul class="list-group list-group-flush p-3">
+      <li class="list-group-item p-2">
+        Nome: {{ user.nome }}
+      </li>
+      <li class="list-group-item p-2">
+        Cognome: {{ user.cognome }}
+      </li>
+      <li class="list-group-item p-2">
+        Email: {{ user.email }}
+      </li>
+      <li class="list-group-item p-2">
+        Password: {{ user.password }}
+      </li>
+      <li class="list-group-item p-2">
+        Gruppo: {{ user.groupDTO?.id }}
+      </li>
+      <li class="list-group-item p-2">
+        Ruoli
+        <div>
+          @for (role of user.ruoli; track $index) {
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Ruolo {{ $index }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">ID: {{ role.id }}</h6>
+                <p class="card-text">.</p>
+                <a [routerLink]="'detail/role/'+role.id" class="card-link">Dettaglio</a>
+              </div>
+            </div>
+          }
+        </div>
+      </li>
+      <li class="list-group-item p-2">
+        Ultima modifica: {{ formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+      </li>
+      <li class="list-group-item p-2">
+        Data creazione: {{ formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+      </li>
+      <li class="list-group-item p-2">
+        Id Utente che ha effettuato la creazione: {{ user.creationUser }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="m-2 p-3">
+    <button type="button" class="btn btn-primary m-1" (click)="modify()">Modifica</button>
+    <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
+  </div>
+</div>

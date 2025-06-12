@@ -214,4 +214,8 @@ export class HttpService {
   getRoleById(id: number): Observable<RoleDTO> {
     return this.http.get<RoleDTO>("http://localhost:8080/roles/" + id);
   }
+
+  getUserById(id: number): Observable<UserDTO> {
+    return this.http.get<UserDTO>("http://localhost:8080/users/" + id);
+  }
 }

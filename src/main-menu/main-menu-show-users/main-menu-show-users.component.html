@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container text-center">
   <div class="row">
     <div class="col">
 
@@ -9,16 +9,23 @@
           <th scope="col">Nome</th>
           <th scope="col">Cognome</th>
           <th scope="col">Email</th>
-          <!--          <th scope="col">Password</th>-->
-          <th scope="col">Gruppo</th>
-          <th scope="col">Ruoli</th>
+          <th scope="col">Ultima Modifica</th>
+          <th scope="col">Data Creazione</th>
+          <th scope="col">Id Utente Creazione</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
           @for (user of users; track user.id) {
             <tr>
               <td>{{ user.id }}</td>
-              <td>{{ user.ruoli }}</td>
+              <td>{{ user.nome }}</td>
+              <td>{{ user.cognome }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-Us') }}</td>
+              <td>{{ formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-Us') }}</td>
+              <td>{{ user.creationUser }}</td>
               <td>
                 <button class="btn btn-info" type="button" (click)="select(user)">Seleziona</button>
               </td>
