@@ -10,6 +10,7 @@ import {AuthGuard} from './AuthGurd';
 import {DetailGroupComponent} from '../detail/detail-group/detail-group.component';
 import {DetailRoleComponent} from '../detail/detail-role/detail-role.component';
 import {DetailUserComponent} from '../detail/detail-user/detail-user.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,16 @@ export const routes: Routes = [
   {
     path: 'verify',
     component: VerifyRegistrationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'createUser',
+    component: CreateUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'createRole',
+    component: CreateUserComponent,
     canActivate: [AuthGuard]
   },
   {
