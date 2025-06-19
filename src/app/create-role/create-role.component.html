@@ -1,0 +1,23 @@
+<div class="container-fluid text-center" style="width: 850px;">
+  <div class="container mt-5">
+    <h2>Crea un nuovo ruolo:</h2>
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="priority" class="form-label">Priorità</label>
+        <input type="number" class="form-control text-center" id="priority" formControlName="priority" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="admin" class="form-label m-lg-1">Amministratore</label>
+        <input type="checkbox" id="admin" formControlName="admin">
+      </div>
+
+      <div class="mb-3">
+        <label for="descrizione" class="form-label">Descrizione</label>
+        <textarea class="form-control text-center" id="descrizione" formControlName="descrizione" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Crea</button>
+    </form>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import {GroupDTO} from '../_model/GroupDTO';
 import {UserDTO} from '../_model/UserDTO';
 import {RoleDTO} from '../_model/RoleDTO';
 import {Message} from '../_model/Message';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +18,18 @@ export class HttpService {
   timeoutId!: any;
 
 
-  constructor(private http: HttpClient, private cookieService: CookieService,private router:Router) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
     console.log(this.tokens)
     this.getHeaderAuth();
   }
 
-  tokens: TokenDTO|undefined;
+  tokens: TokenDTO | undefined;
 
   getHeaderAuth(): HttpHeaders {
-    if(this.tokens){
-    return new HttpHeaders({Authorization: `Bearer ${this.tokens.accessToken}`});
+    if (this.tokens) {
+      return new HttpHeaders({Authorization: `Bearer ${this.tokens.accessToken}`});
 
-    }else{
+    } else {
 
       const tokenString = this.cookieService.get('tokens');
       if (tokenString) {
@@ -42,18 +42,19 @@ export class HttpService {
         }
       } else {
         console.warn('No token found in cookies');
-        
+
         this.router.navigate(["/login"])
       }
-      const token=this.tokens?.accessToken;
+      const token = this.tokens?.accessToken;
       return new HttpHeaders({Authorization: `Bearer ${token}`});
     }
   }
 
-  getHeaderRefresh(): HttpHeaders { if(this.tokens){
-    return new HttpHeaders({Authorization: `Bearer ${this.tokens.accessToken}`});
+  getHeaderRefresh(): HttpHeaders {
+    if (this.tokens) {
+      return new HttpHeaders({Authorization: `Bearer ${this.tokens.accessToken}`});
 
-    }else{
+    } else {
 
       const tokenString = this.cookieService.get('tokens');
       if (tokenString) {
@@ -66,10 +67,10 @@ export class HttpService {
         }
       } else {
         console.warn('No token found in cookies');
-        
+
         this.router.navigate(["/login"])
       }
-      const token=this.tokens?.refreshToken;
+      const token = this.tokens?.refreshToken;
       return new HttpHeaders({Authorization: `Bearer ${token}`});
     }
   }
@@ -140,61 +141,60 @@ export class HttpService {
   }
 
   callBack() {
-  this.refreshToken().subscribe(() => {
-      const token=this.tokens?.accessToken;
-      if(!token){
+    this.refreshToken().subscribe(() => {
+      const token = this.tokens?.accessToken;
+      if (!token) {
         console.log("token undefined")
         return;
       }
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const expirationTime = payload.exp * 1000;
-    const timeout = expirationTime - Date.now();
-
-    console.log("Nuovo timeout calcolato:", timeout);
-
-    if (timeout > 0) {
-      this.timeoutId = setTimeout(() => this.callBack(), timeout);
-    } else {
-      console.warn("Il token è già scaduto!");
-    }
-  });
-
-  console.log("Refresh token chiamato!");
-}
-
-login(email: string, password: string): Observable<TokenDTO> {
-  let info: LoginInfo = {
-    email: email,
-    password: password,
-  };
-
-  return this.http.post<TokenDTO>("http://localhost:8080/users/login", info).pipe(
-    tap((tokens) => {
-      console.log("Login in corso per email: " + info.email);
-      this.tokens = tokens;
-      this.cookieService.set('tokens', JSON.stringify(this.tokens));
-
-      const payload = JSON.parse(atob(tokens.accessToken.split('.')[1]));
-      const expirationTime = payload.exp * 1000; 
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = payload.exp * 1000;
       const timeout = expirationTime - Date.now();
 
-      console.log("Timeout calcolato dinamicamente:", timeout);
+      console.log("Nuovo timeout calcolato:", timeout);
 
       if (timeout > 0) {
         this.timeoutId = setTimeout(() => this.callBack(), timeout);
       } else {
         console.warn("Il token è già scaduto!");
       }
+    });
 
-      this.showTimeout();
-    }),
-    catchError((error: HttpErrorResponse) => {
-      alert(error.status);
-      return [];
-    })
-  );
-}
+    console.log("Refresh token chiamato!");
+  }
 
+  login(email: string, password: string): Observable<TokenDTO> {
+    let info: LoginInfo = {
+      email: email,
+      password: password,
+    };
+
+    return this.http.post<TokenDTO>("http://localhost:8080/users/login", info).pipe(
+      tap((tokens) => {
+        console.log("Login in corso per email: " + info.email);
+        this.tokens = tokens;
+        this.cookieService.set('tokens', JSON.stringify(this.tokens));
+
+        const payload = JSON.parse(atob(tokens.accessToken.split('.')[1]));
+        const expirationTime = payload.exp * 1000;
+        const timeout = expirationTime - Date.now();
+
+        console.log("Timeout calcolato dinamicamente:", timeout);
+
+        if (timeout > 0) {
+          this.timeoutId = setTimeout(() => this.callBack(), timeout);
+        } else {
+          console.warn("Il token è già scaduto!");
+        }
+
+        this.showTimeout();
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.status);
+        return [];
+      })
+    );
+  }
 
 
   register(user: UserDTO): Observable<Message> {
@@ -222,8 +222,19 @@ login(email: string, password: string): Observable<TokenDTO> {
         return of(error.error);
       })
     );
-    ;
+  }
 
+  createRole(role: RoleDTO): Observable<Message> {
+    const headers = this.getHeaderAuth();
+    return this.http.post<string>("http://localhost:8080/roles/create", role, {headers}).pipe(
+      tap(resp => {
+        console.log("register role , resp:" + resp);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        alert(err.error)
+        return of(err.error)
+      })
+    )
   }
 
   // TODO ENDPOINT DA DEFINIRE

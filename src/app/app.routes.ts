@@ -10,9 +10,14 @@ import {AuthGuard} from './AuthGurd';
 import {DetailGroupComponent} from '../detail/detail-group/detail-group.component';
 import {DetailRoleComponent} from '../detail/detail-role/detail-role.component';
 import {DetailUserComponent} from '../detail/detail-user/detail-user.component';
-import { CreateUserComponent } from './create-user/create-user.component';
+import {CreateUserComponent} from './create-user/create-user.component';
+import {CreateRoleComponent} from './create-role/create-role.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/main-menu',
+  },
   {
     path: 'registration',
     component: RegistrationComponent
@@ -33,7 +38,7 @@ export const routes: Routes = [
   },
   {
     path: 'createRole',
-    component: CreateUserComponent,
+    component: CreateRoleComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -58,14 +63,17 @@ export const routes: Routes = [
   },
   {
     path: 'detail/group/:id',
-    component: DetailGroupComponent
+    component: DetailGroupComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'detail/role/:id',
-    component: DetailRoleComponent
+    component: DetailRoleComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'detail/user/:id',
-    component: DetailUserComponent
+    component: DetailUserComponent,
+    canActivate: [AuthGuard]
   }
 ];
