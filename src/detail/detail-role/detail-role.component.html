@@ -6,10 +6,10 @@
     </div>
     <ul class="list-group list-group-flush p-3">
       <li class="list-group-item p-2">
-        Ultima modifica: {{ formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+        Ultima modifica: {{ formatDate(role.ultimaModifica??'', 'yyyy-MM-dd', 'en-US') }}
       </li>
       <li class="list-group-item p-2">
-        Data creazione: {{ formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+        Data creazione: {{ formatDate(role.dataCreazione??'', 'yyyy-MM-dd', 'en-US') }}
       </li>
       <li class="list-group-item p-2">
         Id Utente che ha effettuato la creazione: {{ role.creationUser }}

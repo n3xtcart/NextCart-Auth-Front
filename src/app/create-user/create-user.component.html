@@ -1,31 +1,67 @@
 <div class="container-fluid text-center mt-3">
-  <div class="card">
-    <div class="card-body">
-        <form>
-            <div class="row">
+    <div class="card">
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()">
+                <div class="row">
 
-                <div class="col">
-                    <label for="nome">Nome.</label><br>
-                    <input type="text" name="nome" id="nome"><br>
-                    <label for="cognome">Cognome:</label><br>
-                    <input type="text" name="cognome" id="cognome"><br>
-                    <label for="email">Email:</label><br>
-                    <input type="email" name="email" id="email"><br>
-                </div>
-                <div class="col">
-                    <label for="group">Group:</label><br>
-                    <select id="group" name="group">
-                        <option></option>
-                    </select><br>
-                    <label for="role">Role:</label><br>
-                    <select id="role" name="role">
-                        <option></option>
-                    </select><br>
-                    <label for="password">Password:</label><br>
-                    <input type="password" name="password" id="password"></div><br>
+                    <div class="col">
+                        <label for="nome">Nome:</label><br>
+                        <input type="text" name="nome" id="nome" [(ngModel)]="user.nome"><br>
+                        <label for="cognome">Cognome:</label><br>
+                        <input type="text" name="cognome" id="cognome" [(ngModel)]="user.cognome"><br>
+                        <label for="group">Group:</label><br>
+                        <select id="group" name="group" [(ngModel)]="group">
+                            @for (group of groups; track $index) {
+                            <option [ngValue]="group">{{group.id}}</option>
+                            }
+                        </select>
+                        <mat-paginator [length]="totalElementsGroup" [pageSize]="pageSizeGroup"
+                            [pageIndex]="pageIndexGroup" [pageSizeOptions]="[5, 10, 20]"
+                            (page)="onPageChangeGroups($event)"></mat-paginator><br><br>
+                    </div>
+                    <div class="col">
+
+                        <label for="email">Email:</label><br>
+                        <input type="email" name="email" id="email" [(ngModel)]="user.email"><br>
+                        <label for="password">Password:</label><br>
+                        <input type="password" name="password" id="password" [(ngModel)]="user.password"><br>
+                        <label for="role">Role:</label><br>
+                        <div class="row">
+                                <div class="col">
+
+                                    <select id="role" name="role" [(ngModel)]="selectedRole" (change)="addRole(selectedRole)">
+                                        @for (role of roles; track $index) {
+                                            <option [ngValue]="role">{{role.descrizione}}</option>
+                                        }
+                                    </select>
+                                    <mat-paginator [length]="totalElementsRole" [pageSize]="pageSizeRole"
+                                    [pageIndex]="pageIndexRole" [pageSizeOptions]="[5, 10, 20]"
+                                    (page)="onPageChangeRoles($event)"></mat-paginator>
+                                </div>
+                            <br>
+
+                            
+                        </div>
+
+                    </div><br>
+                     <div class="row">
+
+        @for (item of role; track $index) {
+            <div class="col m-2 border position-relative">
+                <button type="button" class="btn-close position-absolute top-0 end-0 " (click)="delete($index)"></button>
+
+                id : {{item.id}}
+                <br>
+                descrizione : {{item.descrizione}}
             </div>
-        </form>
+        }
     </div>
-      
-  </div>
-</div>
+                </div>
+                <input type="submit" value="submit" class="btn btn-primary">
+
+            </form>
+        </div>
+
+    </div>
+   
+    </div>

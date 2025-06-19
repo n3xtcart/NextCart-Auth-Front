@@ -4,10 +4,10 @@
     <div class="card-body">
       <ul class="list-group list-group-flush">
         <li class="list-group-item p-2">
-          Ultima modifica: {{ formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+          Ultima modifica: {{ formatDate(group.ultimaModifica ?? '', 'yyyy-MM-dd', 'en-US') }}
         </li>
         <li class="list-group-item p-2">
-          Data creazione: {{ formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+          Data creazione: {{ formatDate(group.dataCreazione ??'', 'yyyy-MM-dd', 'en-US') }}
         </li>
         <li class="list-group-item p-2">
           Id Utente che ha effettuato la creazione: {{ group.creationUser }}

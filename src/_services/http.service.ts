@@ -213,7 +213,7 @@ login(email: string, password: string): Observable<TokenDTO> {
 
   createUser(user: UserDTO): Observable<Message> {
     const headers = this.getHeaderAuth();
-    return this.http.post<string>("http://localhost:8080/users/create", user, {headers}).pipe(
+    return this.http.post<string>("http://localhost:8080/admin/users", user, {headers}).pipe(
       tap(resp => {
         console.log("register user , resp:" + resp);
       }),

@@ -18,7 +18,7 @@
         Password: {{ user.password }}
       </li>
       <li class="list-group-item p-2">
-        Gruppo: {{ user.groupDTO?.id }}
+        Gruppo: {{ user.groupDTO.id }}
       </li>
       <li class="list-group-item p-2">
         Ruoli
@@ -36,10 +36,10 @@
         </div>
       </li>
       <li class="list-group-item p-2">
-        Ultima modifica: {{ formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}
+        Ultima modifica: {{ formatDate(user.ultimaModifica??'', 'yyyy-MM-dd', 'en-US') }}
       </li>
       <li class="list-group-item p-2">
-        Data creazione: {{ formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US') }}
+        Data creazione: {{ formatDate(user.dataCreazione??'', 'yyyy-MM-dd', 'en-US') }}
       </li>
       <li class="list-group-item p-2">
         Id Utente che ha effettuato la creazione: {{ user.creationUser }}

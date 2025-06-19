@@ -23,8 +23,8 @@
               <td>{{ user.nome }}</td>
               <td>{{ user.cognome }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-Us') }}</td>
-              <td>{{ formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-Us') }}</td>
+              <td>{{ formatDate(user.ultimaModifica?? '', 'yyyy-MM-dd', 'en-Us') }}</td>
+              <td>{{ formatDate(user.dataCreazione??'', 'yyyy-MM-dd', 'en-Us') }}</td>
               <td>{{ user.creationUser }}</td>
               <td>
                 <button class="btn btn-info" type="button" (click)="select(user)">Seleziona</button>

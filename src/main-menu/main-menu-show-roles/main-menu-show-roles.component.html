@@ -20,8 +20,8 @@
           @for (role of roles; track role.id) {
             <tr>
               <td>{{ role.id }}</td>
-              <td> {{ formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US') }}</td>
-              <td>{{ formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US') }}</td>
+              <td> {{ formatDate(role.ultimaModifica??'', 'yyyy-MM-dd', 'en-US') }}</td>
+              <td>{{ formatDate(role.dataCreazione??'', 'yyyy-MM-dd', 'en-US') }}</td>
               <td>{{ role.creationUser }}</td>
               <td>{{ role.priority }}</td>
               <td>{{ role.admin }}</td>

@@ -7,6 +7,6 @@ export interface UserDTO extends DTO {
   cognome: string
   email: string
   password: string
-  groupDTO?: GroupDTO
+  groupDTO: GroupDTO
   ruoli?: RoleDTO[]
 }
