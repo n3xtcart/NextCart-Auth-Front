@@ -3,4 +3,5 @@ import {DTO} from "./DTO"
 
 export interface GroupDTO extends DTO {
   roleDTO: RoleDTO[]
+  descrizione:string
 }

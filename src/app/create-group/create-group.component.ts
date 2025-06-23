@@ -4,32 +4,25 @@ import { GroupDTO } from '../../_model/GroupDTO';
 import { HttpService } from '../../_services/http.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { Page } from '../../_model/Page';
-import { UserDTO } from '../../_model/UserDTO';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-user',
   imports: [MatPaginatorModule,FormsModule],
-  templateUrl: './create-user.component.html',
-  styleUrl: './create-user.component.css'
+  templateUrl: './create-group.component.html',
+  styleUrl: './create-group.component.css'
 })
-export class CreateUserComponent {
+export class CreateGroupComponent {
  
-  user:UserDTO;
    role:RoleDTO[]=[];
   group:GroupDTO;
 
   roles!:RoleDTO[];
-  groups!:GroupDTO[];
    totalElementsRole = 0;
   pageSizeRole = 10;
   pageIndexRole = 0;
   totalPagesRole: number = 0;
 
-   totalElementsGroup = 0;
-  pageSizeGroup = 10;
-  pageIndexGroup = 0;
-  totalPagesGroup: number = 0;
 selectedRole: any;
 
 
@@ -44,27 +37,7 @@ selectedRole: any;
 
 
     }
-    this.user={
-      nome:"",
-      cognome:"",
-      email:"",
-      password:"",
-      id:0 ,
-      ultimaModifica:undefined,
-      creationUser:undefined,
-      dataCreazione:undefined,
-    groupDTO:{
-      
-      descrizione:"",
-      id:0,
-      roleDTO:[],
-      ultimaModifica:undefined,
-      creationUser:undefined,
-      dataCreazione:undefined
-
-
-    }
-  }
+   
     http.getAllRolesPag(0, 5).subscribe((data: Page<RoleDTO> | never[]) => {
       if (!data) return;
       if (Array.isArray(data)) {
@@ -79,22 +52,6 @@ selectedRole: any;
         this.totalPagesRole = data.totalPages;
       }
       console.log("roles loaded: ", this.roles);
-    });
-
-
-    http.getAllGroupsPag(this.pageIndexGroup, this.pageSizeGroup).subscribe((data: Page<GroupDTO> | never[]) => {
-      if (!data) return;
-      if (Array.isArray(data)) {
-        this.groups = [];
-        this.totalElementsGroup = 0;
-      } else {
-        this.groups = data.content;
-        this.totalElementsGroup = data.totalElements;
-        console.log("Total elements: ", this.totalElementsGroup);
-        this.pageSizeGroup = data.size;
-        this.totalPagesGroup = data.totalPages;
-      }
-      console.log("groups loaded: ", this.groups);
     });
 
 
@@ -135,31 +92,12 @@ addRole(role:RoleDTO) {
 
   onSubmit(){
     console.log(this.role)
+    this.group.roleDTO=this.role
+
     console.log(this.group)
-    this.user.ruoli=this.role
-    this.user.groupDTO=this.group
-
-    console.log(this.user)
-    this.http.createUser(this.user).subscribe()
+    this.http.createGroup(this.group).subscribe()
   }
 
-  onPageChangeGroups(event: any) {
-    this.pageIndexGroup = event.pageIndex;
-    this.pageSizeGroup = event.pageSize;
-    console.log("Page changed to: ", this.pageIndexGroup, " with size: ", this.pageSizeGroup);
-    this.http.getAllGroupsPag(this.pageIndexGroup, this.pageSizeGroup).subscribe((data: Page<GroupDTO> | never[]) => {
-      if (!data) return;
-      if (Array.isArray(data)) {
-        this.groups = [];
-        this.totalElementsGroup = 0;
-      } else {
-        this.groups = data.content;
-        this.totalElementsGroup = data.totalElements;
-
-      }
-      console.log("groups loaded: ", this.groups);
-    });
-  }
 
 
 }

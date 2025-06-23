@@ -1,0 +1,50 @@
+<div class="container-fluid text-center mt-3">
+    <div class="card">
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()">
+                <div class="row">
+
+                    <div class="col">
+
+                        <label for="descrizione">Descrizione:</label><br>
+                        <input type="txt" name="descrizione" id="descrizione" [(ngModel)]="group.descrizione"><br>
+                        <label for="role">Role:</label><br>
+                        <div class="row">
+                                <div class="col">
+
+                                    <select id="role" name="role" [(ngModel)]="selectedRole" (change)="addRole(selectedRole)">
+                                        @for (role of roles; track $index) {
+                                            <option [ngValue]="role">{{role.descrizione}}</option>
+                                        }
+                                    </select>
+                                    <mat-paginator [length]="totalElementsRole" [pageSize]="pageSizeRole"
+                                    [pageIndex]="pageIndexRole" [pageSizeOptions]="[5, 10, 20]"
+                                    (page)="onPageChangeRoles($event)"></mat-paginator>
+                                </div>
+                            <br>
+
+                            
+                        </div>
+
+                    </div><br>
+                     <div class="row">
+
+        @for (item of role; track $index) {
+            <div class="col m-2 border position-relative">
+                <button type="button" class="btn-close position-absolute top-0 end-0 " (click)="delete($index)"></button>
+
+                id : {{item.id}}
+                <br>
+                descrizione : {{item.descrizione}}
+            </div>
+        }
+    </div>
+                </div>
+                <input type="submit" value="submit" class="btn btn-primary">
+
+            </form>
+        </div>
+
+    </div>
+   
+    </div>

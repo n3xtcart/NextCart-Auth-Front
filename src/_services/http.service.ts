@@ -224,9 +224,22 @@ export class HttpService {
     );
   }
 
+  createGroup(group: GroupDTO): Observable<Message> {
+    const headers = this.getHeaderAuth();
+    return this.http.post<string>("http://localhost:8080/group", group, {headers}).pipe(
+      tap(resp => {
+        console.log("register group , resp:" + resp);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error)
+        return of(error.error);
+      })
+    );
+  }
+
   createRole(role: RoleDTO): Observable<Message> {
     const headers = this.getHeaderAuth();
-    return this.http.post<string>("http://localhost:8080/roles/create", role, {headers}).pipe(
+    return this.http.post<string>("http://localhost:8080/roles", role, {headers}).pipe(
       tap(resp => {
         console.log("register role , resp:" + resp);
       }),
