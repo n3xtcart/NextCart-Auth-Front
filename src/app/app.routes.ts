@@ -17,7 +17,7 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: 'main-menu',
     pathMatch: 'full'
   },
   {

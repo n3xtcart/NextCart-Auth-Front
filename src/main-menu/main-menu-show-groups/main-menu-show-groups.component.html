@@ -20,8 +20,8 @@
           @for (group of groups; track group.id) {
             <tr>
               <td>{{ group.id }}</td>
-              <td>{{ formatDate(group.ultimaModifica??'', 'yyyy-MM-dd', 'en-US') }}</td>
-              <td>{{ formatDate(group.dataCreazione??'', 'yyyy-MM-dd', 'en-US') }}</td>
+              <td>{{group.ultimaModifica?formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
+              <td>{{group.dataCreazione?formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
               <td>{{ group.creationUser }}</td>
               @for (role of group.roleDTO; track $index) {
                 <td>
