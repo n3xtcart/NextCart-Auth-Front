@@ -16,7 +16,24 @@ import {UserDTO} from '../_model/UserDTO';
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent implements OnInit {
-  userToRegister!: UserDTO
+  userToRegister: UserDTO = {
+    nome: '',
+    cognome: '',
+    email: '',
+    password: '',
+    groupDTO: {
+      roleDTO: [],
+      descrizione: '',
+      id: 0,
+      ultimaModifica: undefined,
+      dataCreazione: undefined,
+      creationUser: undefined
+    },
+    id: 0,
+    ultimaModifica: undefined,
+    dataCreazione: undefined,
+    creationUser: undefined
+  }
   groups: GroupDTO[] = [];
 
   constructor(private service: HttpService) {

@@ -11,7 +11,6 @@ export class ConfirmRegistrationService {
   }
 
   completeRegistration(token: string): Observable<any> {
-    // TODO CHIAMA END-POINT PER LA VERIFICA DEL TOKEN
     return this.http.post('http://localhost:8080/verify', JSON.stringify({token: token}));
   }
 }
