@@ -19,12 +19,10 @@ export class DetailRoleComponent {
     })
   }
 
-  modify() {
-
-  }
+  
 
   delete() {
-
+this.http.deleteRole(this.role).subscribe()
   }
 
     protected readonly formatDate = formatDate;

@@ -36,10 +36,10 @@
         </div>
       </li>
       <li class="list-group-item p-2">
-        Ultima modifica: {{ formatDate(user.ultimaModifica??'', 'yyyy-MM-dd', 'en-US') }}
+        Ultima modifica: {{user.ultimaModifica?formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}
       </li>
       <li class="list-group-item p-2">
-        Data creazione: {{ formatDate(user.dataCreazione??'', 'yyyy-MM-dd', 'en-US') }}
+        Data creazione: {{user.dataCreazione?formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}
       </li>
       <li class="list-group-item p-2">
         Id Utente che ha effettuato la creazione: {{ user.creationUser }}
@@ -48,7 +48,12 @@
   </div>
 
   <div class="m-2 p-3">
-    <button type="button" class="btn btn-primary m-1" (click)="modify()">Modifica</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  Modifica
+</button>
     <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
   </div>
+
+ <app-modal-user [user]="user"></app-modal-user>
+  
 </div>

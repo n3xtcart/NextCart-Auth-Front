@@ -3,10 +3,11 @@ import {UserDTO} from '../../_model/UserDTO';
 import {HttpService} from '../../_services/http.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {formatDate} from '@angular/common';
+import ModalUserComponent from '../../app/modal-user/modal-user.component';
 
 @Component({
   selector: 'app-detail-user',
-  imports: [
+  imports: [ModalUserComponent,
     RouterLink
   ],
   templateUrl: './detail-user.component.html',
@@ -24,12 +25,10 @@ export class DetailUserComponent {
     )
   }
 
-  modify() {
-
-  }
+ 
 
   delete() {
-
+this.http.deleteUser(this.user).subscribe()
   }
 
   protected readonly formatDate = formatDate;

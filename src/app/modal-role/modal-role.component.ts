@@ -5,35 +5,45 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {    FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import ModalGroupComponent from "../../app/modal-group/modal-group.component";
+import { RoleDTO } from '../../_model/RoleDTO';
 
 @Component({
-  selector: 'app-detail-group',
-  imports: [FormsModule, MatPaginatorModule,
-    RouterLink, ModalGroupComponent],
-  templateUrl: './detail-group.component.html',
-  styleUrl: './detail-group.component.css'
+  selector: 'app-modal-role',
+  imports: [FormsModule,MatPaginatorModule
+  ],
+  templateUrl: './modal-role.component.html',
+  styleUrl: './modal-role.component.css'
 })
-export class DetailGroupComponent {
- @Input() group!: GroupDTO
+export default class ModalGroupComponent {
+  @Input() role!: RoleDTO
+  
 
   modifyForm!: GroupDTO
+  totalElementsRole: number=0;
+  pageSizeRole: number=5;
+  totalPagesRole: number=0;
+  pageIndexRole: any;
+
+ 
+
+  constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
+    console.log(this.role)
+   
+  }
+
+  onSubmit(){
+    this.http.updateRole(this.role).subscribe()
+  }
 
   
 
 
-  constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
-    this.http.getGroupById(this.activatedRoute.snapshot.params['id']).subscribe(e => {
-      this.group = e;
-    });
-  }
-
-
-
-
-  delete() {
-    // TODO cancella
-  }
 
   protected readonly formatDate = formatDate;
+
+
+   
+
+  
+
 }

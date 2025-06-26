@@ -281,4 +281,44 @@ export class HttpService {
     const headers = this.getHeaderAuth();
     return this.http.get<UserDTO>("http://localhost:8080/admin/users/" + id, {headers});
   }
+
+  updateGroup(group:GroupDTO){
+    const headers = this.getHeaderAuth();
+    return this.http.put("http://localhost:8080/groups" ,group,{headers} );
+  }
+  
+  updateUser(user: UserDTO) {
+    const headers = this.getHeaderAuth();
+    return this.http.put("http://localhost:8080/users" ,user,{headers} );
+  } 
+  updateRole(role: RoleDTO) {
+    const headers = this.getHeaderAuth();
+    return this.http.put("http://localhost:8080/roles" ,role,{headers} );
+
+  }
+  deleteGroup(group: GroupDTO) {
+  const headers = this.getHeaderAuth();
+  const options = {
+    headers: headers,
+    body: group
+  };
+  return this.http.delete("http://localhost:8080/groups", options);
+}
+  
+ deleteRole(role: RoleDTO) {
+  const headers = this.getHeaderAuth();
+  const options = {
+    headers: headers,
+    body: role
+  };
+  return this.http.delete("http://localhost:8080/groups", options);
+}
+ deleteUser(user: UserDTO) {
+  const headers = this.getHeaderAuth();
+  const options = {
+    headers: headers,
+    body: user
+  };
+  return this.http.delete("http://localhost:8080/groups", options);
+}
 }
