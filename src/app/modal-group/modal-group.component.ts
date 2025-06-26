@@ -1,12 +1,14 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {HttpService} from '../../_services/http.service';
 import {GroupDTO} from '../../_model/GroupDTO';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Route, Router, RouterLink} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {    FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RoleDTO } from '../../_model/RoleDTO';
 import { Page } from '../../_model/Page';
+
+declare var bootstrap : any;
 
 @Component({
   selector: 'app-modal-group',
@@ -17,8 +19,16 @@ import { Page } from '../../_model/Page';
 })
 export default class ModalGroupComponent {
   @Input() group!: GroupDTO
+
   roles!: RoleDTO[]
-  
+  internalGroup:GroupDTO={
+    roleDTO: [],
+    descrizione: '',
+    id: 0,
+    ultimaModifica: undefined,
+    dataCreazione: undefined,
+    creationUser: undefined
+  }
 
   modifyForm!: GroupDTO
   totalElementsRole: number=0;
@@ -31,8 +41,9 @@ export default class ModalGroupComponent {
   ngOnInit(){
     
     console.log(this.group)
-    
-    this.myRole=this.group.roleDTO
+    this.internalGroup={...this.group}
+    this.myRole=[...this.group.roleDTO]
+
   }
 
   constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
@@ -55,7 +66,8 @@ export default class ModalGroupComponent {
   }
 
   onSubmit(){
-    this.http.updateGroup(this.group).subscribe()
+    this.internalGroup.roleDTO=this.myRole
+    this.group=this.internalGroup
   }
 
   

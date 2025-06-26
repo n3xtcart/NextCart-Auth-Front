@@ -15,17 +15,22 @@
                     <div class="col">
 
                         <label for="nome">Nome:</label><br>
-                        <input type="txt" name="nome" id="nome" [(ngModel)]="user.nome"><br>
+                        <input type="txt" name="nome" id="nome" [(ngModel)]="internalUser.nome"><br>
+                        
                         <label for="cognome">Cognome:</label><br>
-                        <input type="txt" name="cognome" id="cognome" [(ngModel)]="user.cognome"><br>
+                        <input type="txt" name="cognome" id="cognome" [(ngModel)]="internalUser.cognome"><br>
+                        
                         <label for="email">Email:</label><br>
-                        <input type="txt" name="email" id="email" [(ngModel)]="user.email"><br>
+                        <input type="txt" name="email" id="email" [(ngModel)]="internalUser.email"><br>
+                        
                         <label for="password">Password:</label><br>
-                        <input type="txt" name="password" id="password" [(ngModel)]="user.password"><br>
+                        <input type="txt" name="password" id="password" [(ngModel)]="internalUser.password"><br>
+                        
                         <div class="row">
                             <div class="col">
                                 <label for="group">Group:</label><br>
-                                <select id="group" name="group" [(ngModel)]="user.groupDTO">
+                                <select id="group" name="group" [(ngModel)]="internalUser.groupDTO">
+                                    
                                     @for (group of groups; track $index) {
                                         <option [ngValue]="group">{{group.id}}</option>
                                     }

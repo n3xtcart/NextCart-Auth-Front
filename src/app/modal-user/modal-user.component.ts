@@ -18,6 +18,24 @@ import { UserDTO } from '../../_model/UserDTO';
 })
 export default class ModalUserComponent {
   @Input() user!: UserDTO
+  internalUser:UserDTO={
+    nome: '',
+    cognome: '',
+    email: '',
+    password: '',
+    groupDTO: {
+      roleDTO: [],
+      descrizione: '',
+      id: 0,
+      ultimaModifica: undefined,
+      dataCreazione: undefined,
+      creationUser: undefined
+    },
+    id: 0,
+    ultimaModifica: undefined,
+    dataCreazione: undefined,
+    creationUser: undefined
+  }
   roles!: RoleDTO[]
   groups!:GroupDTO[]
   
@@ -37,12 +55,12 @@ pageIndexGroup: number=0;
   ngOnInit(){
     
     console.log(this.user)
-    
-    this.myRole=this.user.ruoli?this.user.ruoli:[]
+    this.internalUser={...this.user}
+    this.myRole=this.user.ruoli? [...this.user.ruoli] :[]
   }
 
   constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
-    console.log(this.user)
+
      http.getAllRolesPag(0, 5).subscribe((data: Page<RoleDTO> | never[]) => {
           if (!data) return;
           if (Array.isArray(data)) {
@@ -78,7 +96,8 @@ pageIndexGroup: number=0;
   }
 
   onSubmit(){
-    this.http.updateUser(this.user).subscribe()
+    this.internalUser.ruoli=this.myRole
+    this.http.updateUser(this.internalUser).subscribe()
   }
 
     onPageChangeGroups(event: any) {
