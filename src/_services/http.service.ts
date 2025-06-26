@@ -149,7 +149,7 @@ export class HttpService {
       }
       const payload = JSON.parse(atob(token.split('.')[1]));
       const expirationTime = payload.exp * 1000;
-      const timeout = expirationTime - Date.now();
+      const timeout = expirationTime - Date.now()-60000;
 
       console.log("Nuovo timeout calcolato:", timeout);
 
@@ -177,7 +177,7 @@ export class HttpService {
 
         const payload = JSON.parse(atob(tokens.accessToken.split('.')[1]));
         const expirationTime = payload.exp * 1000;
-        const timeout = expirationTime - Date.now();
+        const timeout = expirationTime - Date.now()-60000;
 
         console.log("Timeout calcolato dinamicamente:", timeout);
 
@@ -217,9 +217,9 @@ export class HttpService {
       tap(resp => {
         console.log("register user , resp:" + resp);
       }),
-      catchError((error: HttpErrorResponse) => {
-        alert(error.error)
-        return of(error.error);
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
       })
     );
   }
@@ -230,9 +230,9 @@ export class HttpService {
       tap(resp => {
         console.log("register group , resp:" + resp);
       }),
-      catchError((error: HttpErrorResponse) => {
-        alert(error.error)
-        return of(error.error);
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
       })
     );
   }
@@ -244,7 +244,7 @@ export class HttpService {
         console.log("register role , resp:" + resp);
       }),
       catchError((err: HttpErrorResponse) => {
-        alert(err.error)
+        alert(err.status)
         return of(err.error)
       })
     )
@@ -254,46 +254,91 @@ export class HttpService {
 
   loadUsers(): Observable<UserDTO[]> {
     const headers = this.getHeaderAuth();
-    return this.http.get<UserDTO[]>("http://localhost:8080/users", {headers})
+    return this.http.get<UserDTO[]>("http://localhost:8080/users", {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    )
   }
 
   loadGroups(): Observable<GroupDTO[]> {
     const headers = this.getHeaderAuth();
-    return this.http.get<GroupDTO[]>("http://localhost:8080/groups", {headers})
+    return this.http.get<GroupDTO[]>("http://localhost:8080/groups", {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    )
   }
 
   loadRoles(): Observable<RoleDTO[]> {
     const headers = this.getHeaderAuth();
-    return this.http.get<RoleDTO[]>("http://localhost:8080/roles", {headers})
+    return this.http.get<RoleDTO[]>("http://localhost:8080/roles", {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    )
   }
 
   getGroupById(id: number): Observable<GroupDTO> {
     const headers = this.getHeaderAuth();
-    return this.http.get<GroupDTO>("http://localhost:8080/groups/" + id, {headers});
+    return this.http.get<GroupDTO>("http://localhost:8080/groups/" + id, {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
   }
 
   getRoleById(id: number): Observable<RoleDTO> {
     const headers = this.getHeaderAuth();
-    return this.http.get<RoleDTO>("http://localhost:8080/roles/" + id, {headers});
+    return this.http.get<RoleDTO>("http://localhost:8080/roles/" + id, {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
   }
 
   getUserById(id: number): Observable<UserDTO> {
     const headers = this.getHeaderAuth();
-    return this.http.get<UserDTO>("http://localhost:8080/admin/users/" + id, {headers});
+    return this.http.get<UserDTO>("http://localhost:8080/admin/users/" + id, {headers}).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
   }
 
   updateGroup(group:GroupDTO){
     const headers = this.getHeaderAuth();
-    return this.http.put("http://localhost:8080/groups" ,group,{headers} );
+    return this.http.put("http://localhost:8080/groups" ,group,{headers} ).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
   }
   
   updateUser(user: UserDTO) {
     const headers = this.getHeaderAuth();
-    return this.http.put("http://localhost:8080/users" ,user,{headers} );
+    return this.http.put("http://localhost:8080/admin/users" ,user,{headers} ).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
   } 
   updateRole(role: RoleDTO) {
     const headers = this.getHeaderAuth();
-    return this.http.put("http://localhost:8080/roles" ,role,{headers} );
+    return this.http.put("http://localhost:8080/roles" ,role,{headers} ).pipe(
+       catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+    );
 
   }
   deleteGroup(group: GroupDTO) {
@@ -302,7 +347,12 @@ export class HttpService {
     headers: headers,
     body: group
   };
-  return this.http.delete("http://localhost:8080/groups", options);
+  return this.http.delete("http://localhost:8080/groups", options).pipe(
+     catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+  );
 }
   
  deleteRole(role: RoleDTO) {
@@ -311,7 +361,12 @@ export class HttpService {
     headers: headers,
     body: role
   };
-  return this.http.delete("http://localhost:8080/roles", options);
+  return this.http.delete("http://localhost:8080/roles", options).pipe(
+     catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+  );
 }
  deleteUser(user: UserDTO) {
   const headers = this.getHeaderAuth();
@@ -319,6 +374,11 @@ export class HttpService {
     headers: headers,
     body: user
   };
-  return this.http.delete("http://localhost:8080/users", options);
+  return this.http.delete("http://localhost:8080/admin/users", options).pipe(
+     catchError((err: HttpErrorResponse) => {
+        alert(err.status)
+        return of(err.error)
+      })
+  );
 }
 }

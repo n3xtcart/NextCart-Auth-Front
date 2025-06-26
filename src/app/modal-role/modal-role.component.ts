@@ -16,6 +16,15 @@ import { RoleDTO } from '../../_model/RoleDTO';
 })
 export default class ModalRoleComponent {
   @Input() role!: RoleDTO
+  internalRole:RoleDTO={
+    id: 0,
+    priority: 0,
+    admin: false,
+    descrizione: '',
+    ultimaModifica: undefined,
+    dataCreazione: undefined,
+    creationUser: undefined
+  }
   
 
   modifyForm!: GroupDTO
@@ -25,14 +34,16 @@ export default class ModalRoleComponent {
   pageIndexRole: any;
 
  
+  ngOnInit(){
+    this.internalRole={...this.role}
+  }
 
   constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
-    console.log(this.role)
    
   }
 
   onSubmit(){
-    this.http.updateRole(this.role).subscribe()
+    this.http.updateRole(this.internalRole).subscribe()
   }
 
   
