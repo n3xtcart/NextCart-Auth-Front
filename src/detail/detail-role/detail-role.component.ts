@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RoleDTO} from '../../_model/RoleDTO';
 import {HttpService} from '../../_services/http.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {formatDate} from "@angular/common";
 import ModalRoleComponent from '../../app/modal-role/modal-role.component';
 
@@ -13,8 +13,10 @@ import ModalRoleComponent from '../../app/modal-role/modal-role.component';
 })
 export class DetailRoleComponent {
   role!: RoleDTO
+  router:Router
 
-  constructor(private http: HttpService, private route: ActivatedRoute) {
+  constructor(private http: HttpService, private route: ActivatedRoute,router :Router) {
+    this.router=router
     this.http.getRoleById(this.route.snapshot.params['id']).subscribe(role => {
       this.role = role;
     })
@@ -23,7 +25,10 @@ export class DetailRoleComponent {
   
 
   delete() {
-this.http.deleteRole(this.role).subscribe()
+this.http.deleteRole(this.role).subscribe(()=>{
+      alert("eliminazione avvenuto con successo");
+this.router.navigate(["main-menu/roles"])
+    })
   }
 
     protected readonly formatDate = formatDate;

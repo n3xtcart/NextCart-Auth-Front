@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalRoleComponent } from './modal-role.component';
+import ModalRoleComponent from './modal-role.component';
 
 describe('ModalRoleComponent', () => {
   let component: ModalRoleComponent;

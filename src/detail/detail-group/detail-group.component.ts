@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {HttpService} from '../../_services/http.service';
 import {GroupDTO} from '../../_model/GroupDTO';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {    FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -18,11 +18,12 @@ export class DetailGroupComponent {
   group!: GroupDTO
 
   modifyForm!: GroupDTO
-
+ router:Router
   
 
 
-  constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
+  constructor(private http: HttpService, private activatedRoute: ActivatedRoute,router:Router) {
+    this.router=router
     this.http.getGroupById(this.activatedRoute.snapshot.params['id']).subscribe(e => {
       this.group = e;
     });
@@ -32,7 +33,10 @@ export class DetailGroupComponent {
 
 
   delete() {
-    this.http.deleteGroup(this.group).subscribe()
+    this.http.deleteGroup(this.group).subscribe(()=>{
+      alert("eliminazione avvenuto con successo");
+this.router.navigate(["main-menu/groups"])
+    })
   }
 
   protected readonly formatDate = formatDate;

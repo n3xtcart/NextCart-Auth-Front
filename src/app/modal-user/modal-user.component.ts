@@ -53,7 +53,7 @@ pageIndexGroup: number=0;
             this.roles =data.content;
             this.totalElementsRole = data.totalElements;
             console.log("Total elements: ", this.totalElementsRole);
-            this.pageSizeRole = data.size;
+            this.pageSizeRole = data.pageSize;
             this.totalPagesRole = data.totalPages;
           }
           console.log("roles loaded: ", this.roles);
@@ -69,7 +69,7 @@ pageIndexGroup: number=0;
             this.groups =data.content;
             this.totalElementsGroup = data.totalElements;
             console.log("Total elements: ", this.totalElementsGroup);
-            this.pageSizeGroup = data.size;
+            this.pageSizeGroup = data.pageSize;
             this.totalPagesGroup = data.totalPages;
           }
           console.log("roles loaded: ", this.roles);

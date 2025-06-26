@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {UserDTO} from '../../_model/UserDTO';
 import {HttpService} from '../../_services/http.service';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {formatDate} from '@angular/common';
 import ModalUserComponent from '../../app/modal-user/modal-user.component';
 
@@ -15,8 +15,10 @@ import ModalUserComponent from '../../app/modal-user/modal-user.component';
 })
 export class DetailUserComponent {
   user!: UserDTO
+  router:Router
 
-  constructor(private http: HttpService, private activatedRoute: ActivatedRoute) {
+  constructor(private http: HttpService, private activatedRoute: ActivatedRoute,router:Router) {
+    this.router=router;
     this.http.getUserById(this.activatedRoute.snapshot.params['id']).subscribe(
       user => {
         console.log(user)
@@ -28,7 +30,10 @@ export class DetailUserComponent {
  
 
   delete() {
-this.http.deleteUser(this.user).subscribe()
+this.http.deleteUser(this.user).subscribe(()=>{
+      alert("eliminazione avvenuto con successo");
+this.router.navigate(["main-menu/users"])
+    })
   
   }
 

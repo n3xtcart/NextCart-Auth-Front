@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalUserComponent } from './modal-user.component';
+import  ModalUserComponent  from './modal-user.component';
 
 describe('ModalUserComponent', () => {
   let component: ModalUserComponent;

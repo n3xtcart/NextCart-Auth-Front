@@ -38,7 +38,7 @@ export class MainMenuShowGroupsComponent {
         this._groups = data.content;
         this.totalElements = data.totalElements;
         console.log("Total elements: ", this.totalElements);
-        this.pageSize = data.size;
+        this.pageSize = data.pageSize;
         this.totalPages = data.totalPages;
       }
       console.log("Groups loaded: ", this._groups);
@@ -51,8 +51,24 @@ export class MainMenuShowGroupsComponent {
   }
 
   delete(group: GroupDTO) {
-    // TODO IMPLEMENTARE FUNZIONE
-    console.group(group);
+    this.http.deleteGroup(group).subscribe(()=>{
+         this.http.getAllGroupsPag(this.pageIndex, this.pageSize).subscribe((data: Page<GroupDTO> | never[]) => {
+      if (!data) return;
+      if (Array.isArray(data)) {
+        this._groups = [];
+        this.totalElements = 0;
+      } else {
+        this._groups = data.content;
+        this.totalElements = data.totalElements;
+        console.log("Total elements: ", this.totalElements);
+        this.pageSize = data.pageSize;
+        this.totalPages = data.totalPages;
+      }
+      console.log("Groups loaded: ", this._groups);
+    });
+    }
+
+    )
   }
 
   onPageChange(event: any) {

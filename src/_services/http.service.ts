@@ -311,7 +311,7 @@ export class HttpService {
     headers: headers,
     body: role
   };
-  return this.http.delete("http://localhost:8080/groups", options);
+  return this.http.delete("http://localhost:8080/roles", options);
 }
  deleteUser(user: UserDTO) {
   const headers = this.getHeaderAuth();
@@ -319,6 +319,6 @@ export class HttpService {
     headers: headers,
     body: user
   };
-  return this.http.delete("http://localhost:8080/groups", options);
+  return this.http.delete("http://localhost:8080/users", options);
 }
 }

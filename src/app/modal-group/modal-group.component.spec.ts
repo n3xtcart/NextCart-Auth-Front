@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalGroupComponent } from './modal-group.component';
+import  ModalGroupComponent  from './modal-group.component';
 
 describe('ModalGroupComponent', () => {
   let component: ModalGroupComponent;

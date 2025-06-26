@@ -34,7 +34,7 @@ export class MainMenuShowRolesComponent {
         this._roles = data.content;
         this.totalElements = data.totalElements;
         console.log("Total elements: ", this.totalElements);
-        this.pageSize = data.size;
+        this.pageSize = data.pageSize;
         this.totalPages = data.totalPages;
       }
       console.log("Groups loaded: ", this._roles);
@@ -65,9 +65,23 @@ export class MainMenuShowRolesComponent {
   }
 
   delete(role: RoleDTO) {
-    // TODO FUNZIONE DA IMPLEMENTARE
-    console.log(role);
-  }
+      this.http.deleteRole(role).subscribe(()=>{
+           this.http.getAllRolesPag(this.pageIndex, this.pageSize).subscribe((data: Page<RoleDTO> | never[]) => {
+        if (!data) return;
+        if (Array.isArray(data)) {
+          this._roles = [];
+          this.totalElements = 0;
+        } else {
+          this._roles = data.content;
+          this.totalElements = data.totalElements;
+          console.log("Total elements: ", this.totalElements);
+          this.pageSize = data.pageSize;
+          this.totalPages = data.totalPages;
+        }
+        console.log("Roles loaded: ", this._roles);
+      });
+      })
+    }
 
   protected readonly formatDate = formatDate;
 }

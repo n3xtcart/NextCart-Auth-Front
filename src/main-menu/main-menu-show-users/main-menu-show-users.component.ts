@@ -15,7 +15,7 @@ import {formatDate} from '@angular/common';
 export class MainMenuShowUsersComponent {
   private _users: UserDTO[] = [];
   totalElements = 0;
-  pageSize = 10;
+  pageSize = 5;
   pageIndex = 0;
   totalPages: number = 0;
 
@@ -33,7 +33,9 @@ export class MainMenuShowUsersComponent {
         this._users = data.content;
         this.totalElements = data.totalElements;
         console.log("Total elements: ", this.totalElements);
-        this.pageSize = data.size;
+        this.pageSize = data.pageSize;
+        console.log("pag size : {}",this.pageSize)
+        console.log("data {}" , data.pageSize)
         this.totalPages = data.totalPages;
       }
       console.log("Users loaded: ", this._users);
@@ -48,9 +50,23 @@ export class MainMenuShowUsersComponent {
   }
 
   delete(user: UserDTO) {
-    // TODO FUNZIONE DA IMPLEMENTARE
-    console.log(user)
-  }
+       this.http.deleteUser(user).subscribe(()=>{
+              this.http.getAllUsersPag(this.pageIndex, this.pageSize).subscribe((data: Page<UserDTO> | never[]) => {
+           if (!data) return;
+           if (Array.isArray(data)) {
+             this._users = [];
+             this.totalElements = 0;
+           } else {
+             this._users = data.content;
+             this.totalElements = data.totalElements;
+             console.log("Total elements: ", this.totalElements);
+             this.pageSize = data.pageSize;
+             this.totalPages = data.totalPages;
+           }
+           console.log("Roles loaded: ", this._users);
+         });
+         })
+       }
 
 
   onPageChange(event: any) {
