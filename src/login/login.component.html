@@ -1,26 +1,31 @@
-<div class="row m-2 p-2"></div>
-<div class="row">
-    <div class="col"></div>
+<div class="with-shadow super-center">
+  <div class="row text-center">
     <div class="col-md-auto">
-        <div class=" mt-5 p-4 border border-1 rounded-3 shadow bg-white ">
-            <h1>FaiSpesa</h1>
-            <p>Registrati</p>
-            <!--    TODO INSERIRE LA LOGICA DI CONTROLLO DI VALIDITà  -->
-            <form #loginForm="ngForm" class="was-validated">
-                    <div class="col p-3 ">
-                        <label for="email">Email:</label><br>
-                        <input id="email" autocomplete="email" class="form-control is-invalid" type="text"
-                            placeholder="Mario.Rossi@Example.it" name="mail" [(ngModel)]="email"
-                            required>
-                        <label for="password">Password:</label><br>
-                        <input id="password" autocomplete="current-password" type="password" class="form-control is-invalid" name="password"
-                            [(ngModel)]="password" required>
-                    </div>
-                    <button class="bg-primary bg-gradient text-light rounded-3 w-75 border-1"
-                       [disabled]="loginForm.invalid" (click)="login()">Login
-                    </button>
-            </form>
+      <div class=" p-4 ">
+        <h2>Accedi alla piattarorma di amministrazione</h2>
+        <form #loginForm="ngForm" class="was-validated p-2">
+          <div class="col p-3">
+            <div class="p-3">
+              <label class="mb-1" for="email">Email:</label><br>
+              <input id="email" autocomplete="email" class="form-control is-invalid text-center input-bar" type="text"
+                     placeholder="mario.rossi@example.it" name="mail" [(ngModel)]="email"
+                     required>
+            </div>
+            <div class="p-3">
+              <label class="mb-1" for="password">Password:</label><br>
+              <input id="password" autocomplete="current-password" type="password"
+                     class="form-control is-invalid text-center input-bar"
+                     name="password"
+                     [(ngModel)]="password" required>
+            </div>
+          </div>
+        </form>
+        <div class="col p-2 mb-2">
+          <button type="button" class="btn btn-primary btn-lg"
+                  [disabled]="loginForm.invalid" (click)="login()">Login
+          </button>
         </div>
+      </div>
     </div>
-    <div class="col"></div>
+  </div>
 </div>

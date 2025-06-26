@@ -1,4 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Bungee, Roboto, "Helvetica Neue", sans-serif;
+}
+
+.with-shadow {
+  border-radius: 10px;
+  box-shadow: 0 3px 6px #034051;
+}
+
+.megamenu {
+  font-family: Bungee, Roboto, "Helvetica Neue", sans-serif;
+  margin: 25px;
+  /* Center vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.super-center {
+  margin-top: 25%;
+}

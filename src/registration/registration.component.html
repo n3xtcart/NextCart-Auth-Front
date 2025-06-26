@@ -1,42 +1,42 @@
-<div class="row m-2 p-2"></div>
-<div class="row">
-  <div class="col"></div>
-  <div class="col-md-auto">
-    <div class=" mt-5 p-4 border border-1 rounded-3 shadow bg-white ">
-      <h1>FaiSpesa</h1>
-      <p>Registrati</p>
-      <form action="#" class="was-validated">
-        <div class="row mb-3">
-          <div class="col p-3 h-75">
-            <label for="name">Nome:</label><br>
-            <input id="name" class="form-control is-invalid" type="text" placeholder="Mario" name="name"
-                   [(ngModel)]="userToRegister.nome" required>
-            <label for="surname">Cognome:</label><br>
-            <input id="surname" class="form-control is-invalid" type="text" placeholder="Rossi" name="surname"
-                   [(ngModel)]="userToRegister.cognome" required>
-                   
+<div class="super-center with-shadow" style="font-size: 25px">
+  <div class="row text-center">
+    <div class="col-md-auto p-3">
+      <div class=" mt-5 p-4 ">
+        <h1>NextCart</h1>
+        <p class="lbl">Registrati</p>
+        <form action="#" class="was-validated">
+          <div class="row mb-3">
+            <div class="col p-3 h-75">
+              <label class="lbl" for="name">Nome:</label><br>
+              <input id="name" class="form-control is-invalid" type="text" placeholder="Mario" name="name"
+                     [(ngModel)]="userToRegister.nome" required>
+              <label class="lbl" for="surname">Cognome:</label><br>
+              <input id="surname" class="form-control is-invalid" type="text" placeholder="Rossi" name="surname"
+                     [(ngModel)]="userToRegister.cognome" required>
+
+            </div>
+            <div class="col p-3 ">
+              <label class="lbl" for="email">Email:</label><br>
+              <input id="email" class="form-control is-invalid" type="text" placeholder="mario.rossi@example.it"
+                     name="mail" [(ngModel)]="userToRegister.email" required>
+              <label class="lbl" for="confermeEmail">Conferme Email:</label><br>
+              <input id="confermeEmail" class="form-control is-invalid" type="text" placeholder="mario.rossi@example.it"
+                     required>
+              <label class="lbl" for="password">Password:</label><br>
+              <input id="password" type="password" class="form-control is-invalid" name="password"
+                     [(ngModel)]="userToRegister.password" required>
+              <label class="lbl" for="confermePassword">Conferme Password:</label><br>
+              <input id="confermePassword" class="form-control is-invalid" type="password" required>
+            </div>
           </div>
-          <div class="col p-3 ">
-            <label for="email">Email:</label><br>
-            <input id="email" class="form-control is-invalid" type="text" placeholder="Mario.Rossi@Example.it"
-                   name="mail" [(ngModel)]="userToRegister.email" required>
-            <label for="confermeEmail">Conferme Email:</label><br>
-            <input id="confermeEmail" class="form-control is-invalid" type="text" placeholder="Mario.Rossi@Example.it"
-                   required>
-            <label for="password">Password:</label><br>
-            <input id="password" type="password" class="form-control is-invalid" name="password"
-                   [(ngModel)]="userToRegister.password" required>
-            <label for="confermePassword">Conferme Password:</label><br>
-            <input id="confermePassword" class="form-control is-invalid" type="password" required>
-          </div>
+          <button type="button" class="btn btn-primary btn-lg" (click)="register()">Registrati
+          </button>
+        </form>
+        <div class="register mt-2">Sei già registrato? Effettua il <a [routerLink]="'/login'">login</a>
         </div>
-        <button class="bg-primary bg-gradient text-light rounded-3 w-75 border-1" (click)="register()">Registrati
-        </button>
-      </form>
-      <div class="register">oppure <a [routerLink]="'/login'">Torna al Login</a>
       </div>
     </div>
+    <div class="col"></div>
   </div>
-  <div class="col"></div>
 </div>
 

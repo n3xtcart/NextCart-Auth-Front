@@ -12,7 +12,7 @@ import {DetailRoleComponent} from '../detail/detail-role/detail-role.component';
 import {DetailUserComponent} from '../detail/detail-user/detail-user.component';
 import {CreateUserComponent} from './create-user/create-user.component';
 import {CreateRoleComponent} from './create-role/create-role.component';
-import { CreateGroupComponent } from './create-group/create-group.component';
+import {CreateGroupComponent} from './create-group/create-group.component';
 
 export const routes: Routes = [
   {
@@ -30,8 +30,7 @@ export const routes: Routes = [
   },
   {
     path: 'verify',
-    component: VerifyRegistrationComponent,
-    canActivate: [AuthGuard]
+    component: VerifyRegistrationComponent
   },
   {
     path: 'createUser',

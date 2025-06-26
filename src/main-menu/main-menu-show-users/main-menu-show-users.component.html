@@ -1,7 +1,9 @@
-<div class="container text-center">
-  <div class="row">
-    <div class="col">
-
+<div class="container text-center mt-5 with-shadow ">
+  <div class="row mb-2">
+    <h2 class="mt-3">Utenti registrati nel sistema</h2>
+  </div>
+  <div class="row p-3">
+    <div class="col mt-3">
       <table class="table">
         <thead>
         <tr>
@@ -23,8 +25,8 @@
               <td>{{ user.nome }}</td>
               <td>{{ user.cognome }}</td>
               <td>{{ user.email }}</td>
-               <td>{{user.ultimaModifica?formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
-              <td>{{user.dataCreazione?formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
+              <td>{{ user.ultimaModifica ? formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US') : undefined }}</td>
+              <td>{{ user.dataCreazione ? formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US') : undefined }}</td>
               <td>{{ user.creationUser }}</td>
               <td>
                 <button class="btn btn-info" type="button" (click)="select(user)">Seleziona</button>
@@ -37,11 +39,11 @@
         </tbody>
       </table>
     </div>
+    <mat-paginator [length]="totalElements"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   (page)="onPageChange($event)"></mat-paginator>
   </div>
 </div>
 
-<mat-paginator [length]="totalElements"
-               [pageSize]="pageSize"
-               [pageIndex]="pageIndex"
-               [pageSizeOptions]="[5, 10, 20]"
-               (page)="onPageChange($event)"></mat-paginator>

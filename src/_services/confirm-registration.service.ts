@@ -11,6 +11,6 @@ export class ConfirmRegistrationService {
   }
 
   completeRegistration(token: string): Observable<any> {
-    return this.http.post('http://localhost:8080/verify', JSON.stringify({token: token}));
+    return this.http.get(`http://localhost:8080/users/confirmRegistration/${token}`);
   }
 }

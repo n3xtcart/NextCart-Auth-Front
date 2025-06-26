@@ -1,7 +1,9 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-
+<div class="container text-center mt-5 with-shadow">
+  <div class="row mb-2">
+    <h2 class="mt-3">Gruppi presenti nel sistema</h2>
+  </div>
+  <div class="row p-3">
+    <div class="col mt-3">
       <table class="table">
         <thead>
         <tr>
@@ -20,13 +22,13 @@
           @for (group of groups; track group.id) {
             <tr>
               <td>{{ group.id }}</td>
-              <td>{{group.ultimaModifica?formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
-              <td>{{group.dataCreazione?formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}</td>
+              <td>{{ group.ultimaModifica ? formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US') : undefined }}</td>
+              <td>{{ group.dataCreazione ? formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US') : undefined }}</td>
               <td>{{ group.creationUser }}</td>
               @for (role of group.roleDTO; track $index) {
                 <td>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
                       Info
                     </button>
@@ -64,10 +66,10 @@
         </tbody>
       </table>
     </div>
+    <mat-paginator [length]="totalElements"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   (page)="onPageChange($event)"></mat-paginator>
   </div>
 </div>
-<mat-paginator [length]="totalElements"
-               [pageSize]="pageSize"
-               [pageIndex]="pageIndex"
-               [pageSizeOptions]="[5, 10, 20]"
-               (page)="onPageChange($event)"></mat-paginator>

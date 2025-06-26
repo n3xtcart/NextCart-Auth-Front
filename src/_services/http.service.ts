@@ -43,7 +43,7 @@ export class HttpService {
       } else {
         console.warn('No token found in cookies');
 
-        this.router.navigate(["/login"])
+        // this.router.navigate(["/login"])
       }
       const token = this.tokens?.accessToken;
       return new HttpHeaders({Authorization: `Bearer ${token}`});
@@ -199,7 +199,7 @@ export class HttpService {
 
   register(user: UserDTO): Observable<Message> {
     console.log(user)
-    return this.http.post<string>("http://localhost:8080/users/register", user).pipe(
+    return this.http.post<string>("http://localhost:8080/admin/users/register", user).pipe(
       tap(resp => {
         console.log("register user , resp:" + resp);
       }),
@@ -286,11 +286,11 @@ export class HttpService {
     const headers = this.getHeaderAuth();
     return this.http.put("http://localhost:8080/groups" ,group,{headers} );
   }
-  
+
   updateUser(user: UserDTO) {
     const headers = this.getHeaderAuth();
     return this.http.put("http://localhost:8080/users" ,user,{headers} );
-  } 
+  }
   updateRole(role: RoleDTO) {
     const headers = this.getHeaderAuth();
     return this.http.put("http://localhost:8080/roles" ,role,{headers} );
@@ -304,7 +304,7 @@ export class HttpService {
   };
   return this.http.delete("http://localhost:8080/groups", options);
 }
-  
+
  deleteRole(role: RoleDTO) {
   const headers = this.getHeaderAuth();
   const options = {
