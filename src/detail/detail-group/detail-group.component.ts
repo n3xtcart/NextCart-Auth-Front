@@ -15,7 +15,7 @@ import ModalGroupComponent from "../../app/modal-group/modal-group.component";
   styleUrl: './detail-group.component.css'
 })
 export class DetailGroupComponent {
- @Input() group!: GroupDTO
+  group!: GroupDTO
 
   modifyForm!: GroupDTO
 
@@ -32,7 +32,7 @@ export class DetailGroupComponent {
 
 
   delete() {
-    // TODO cancella
+    this.http.deleteGroup(this.group).subscribe()
   }
 
   protected readonly formatDate = formatDate;

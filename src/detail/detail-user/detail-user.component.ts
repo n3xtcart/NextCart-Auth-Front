@@ -29,6 +29,7 @@ export class DetailUserComponent {
 
   delete() {
 this.http.deleteUser(this.user).subscribe()
+  
   }
 
   protected readonly formatDate = formatDate;

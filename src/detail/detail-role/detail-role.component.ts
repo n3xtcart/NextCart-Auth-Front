@@ -3,10 +3,11 @@ import {RoleDTO} from '../../_model/RoleDTO';
 import {HttpService} from '../../_services/http.service';
 import {ActivatedRoute} from '@angular/router';
 import {formatDate} from "@angular/common";
+import ModalRoleComponent from '../../app/modal-role/modal-role.component';
 
 @Component({
   selector: 'app-detail-role',
-  imports: [],
+  imports: [ModalRoleComponent],
   templateUrl: './detail-role.component.html',
   styleUrl: './detail-role.component.css'
 })

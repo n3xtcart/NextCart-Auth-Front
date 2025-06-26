@@ -28,8 +28,12 @@
     </ul>
   </div>
 
-  <div class="m-2 p-3">
-    <button type="button" class="btn btn-primary m-1" (click)="modify()">Modifica</button>
+  <div class="m-2 p-3"><!-- Trigger button -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  Modifica
+</button>
     <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
   </div>
+
+ <app-modal-role [role]="role"></app-modal-role>
 </div>

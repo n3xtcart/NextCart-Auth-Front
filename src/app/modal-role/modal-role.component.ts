@@ -14,7 +14,7 @@ import { RoleDTO } from '../../_model/RoleDTO';
   templateUrl: './modal-role.component.html',
   styleUrl: './modal-role.component.css'
 })
-export default class ModalGroupComponent {
+export default class ModalRoleComponent {
   @Input() role!: RoleDTO
   
 
