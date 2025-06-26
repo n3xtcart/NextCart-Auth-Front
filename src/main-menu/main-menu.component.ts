@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpService} from '../_services/http.service';
-import {Router} from '@angular/router';
-import {catchError} from 'rxjs';
+import {Router, RouterLink} from '@angular/router';
 import {UserDTO} from '../_model/UserDTO';
 
 @Component({
   selector: 'app-main-menu',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.css'
 })
@@ -23,4 +24,10 @@ export class MainMenuComponent {
     this.userDTO = JSON.parse(obj.user);
   }
 
+  logout() {
+    this.service.tokens = {
+      accessToken: "", refreshToken: ""
+    }
+    this.router.navigate(['/login']);
+  }
 }

@@ -1,78 +1,78 @@
-import { Component } from '@angular/core';
-import { RoleDTO } from '../../_model/RoleDTO';
-import { GroupDTO } from '../../_model/GroupDTO';
-import { HttpService } from '../../_services/http.service';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { Page } from '../../_model/Page';
-import { UserDTO } from '../../_model/UserDTO';
-import { FormsModule } from '@angular/forms';
+import {Component} from '@angular/core';
+import {RoleDTO} from '../../_model/RoleDTO';
+import {GroupDTO} from '../../_model/GroupDTO';
+import {HttpService} from '../../_services/http.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {Page} from '../../_model/Page';
+import {UserDTO} from '../../_model/UserDTO';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-create-user',
-  imports: [MatPaginatorModule,FormsModule],
+  imports: [MatPaginatorModule, FormsModule],
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.css'
 })
 export class CreateUserComponent {
- 
-  user:UserDTO;
-   role:RoleDTO[]=[];
-  group:GroupDTO;
 
-  roles!:RoleDTO[];
-  groups!:GroupDTO[];
-   totalElementsRole = 0;
-  pageSizeRole = 10;
+  user: UserDTO;
+  role: RoleDTO[] = [];
+  group: GroupDTO;
+
+  roles!: RoleDTO[];
+  groups!: GroupDTO[];
+  totalElementsRole = 0;
+  pageSizeRole = 2;
   pageIndexRole = 0;
   totalPagesRole: number = 0;
 
-   totalElementsGroup = 0;
-  pageSizeGroup = 10;
+  totalElementsGroup = 0;
+  pageSizeGroup = 2;
   pageIndexGroup = 0;
   totalPagesGroup: number = 0;
-selectedRole: any;
+  selectedRole: any;
 
 
-   constructor(private http: HttpService) {
-    this.group={
-      roleDTO:[],
-      id:0,
-      descrizione:"",
-      dataCreazione:undefined,
-      creationUser:undefined,
-      ultimaModifica:undefined,
-
-
-    }
-    this.user={
-      nome:"",
-      cognome:"",
-      email:"",
-      password:"",
-      id:0 ,
-      ultimaModifica:undefined,
-      creationUser:undefined,
-      dataCreazione:undefined,
-    groupDTO:{
-      
-      descrizione:"",
-      id:0,
-      roleDTO:[],
-      ultimaModifica:undefined,
-      creationUser:undefined,
-      dataCreazione:undefined
+  constructor(private http: HttpService) {
+    this.group = {
+      roleDTO: [],
+      id: 0,
+      descrizione: "",
+      dataCreazione: undefined,
+      creationUser: undefined,
+      ultimaModifica: undefined,
 
 
     }
-  }
-    http.getAllRolesPag(0, 5).subscribe((data: Page<RoleDTO> | never[]) => {
+    this.user = {
+      nome: "",
+      cognome: "",
+      email: "",
+      password: "",
+      id: 0,
+      ultimaModifica: undefined,
+      creationUser: undefined,
+      dataCreazione: undefined,
+      groupDTO: {
+
+        descrizione: "",
+        id: 0,
+        roleDTO: [],
+        ultimaModifica: undefined,
+        creationUser: undefined,
+        dataCreazione: undefined
+
+
+      }
+    }
+    http.getAllRolesPag(this.pageIndexRole, this.pageSizeRole).subscribe((data: Page<RoleDTO> | never[]) => {
       if (!data) return;
       if (Array.isArray(data)) {
         this.roles = [];
-        this.totalElementsRole =0;
+        this.totalElementsRole = 0;
       } else {
         console.log(this.roles)
-        this.roles =data.content;
+        this.roles = data.content;
         this.totalElementsRole = data.totalElements;
         console.log("Total elements: ", this.totalElementsRole);
         this.pageSizeRole = data.pageSize;
@@ -101,19 +101,21 @@ selectedRole: any;
   }
 
 
-
-  delete(index:number){
-    this.role.splice(index,1)
+  addRole(role: RoleDTO) {
+    console.log(role)
+    this.role.push(role);
+    console.log(this.role);
   }
 
+  removeRole(role: RoleDTO) {
+    console.log(role)
+    this.role = this.role.filter(r => r.id != role.id)
+    console.log(this.role)
+  }
 
-  
-
-addRole(role:RoleDTO) {
-  console.log(role)
-  this.role.push(role);
-
-}
+  verifyPresence(role: RoleDTO): boolean {
+    return this.role.filter(r => r.id == role.id).length > 0
+  }
 
   onPageChangeRoles(event: any) {
     this.pageIndexRole = event.pageIndex;
@@ -123,7 +125,7 @@ addRole(role:RoleDTO) {
       if (!data) return;
       if (Array.isArray(data)) {
         this.roles = [];
-       event.totalElements = 0;
+        event.totalElements = 0;
       } else {
         this.roles = data.content;
         this.totalElementsRole = data.totalElements;
@@ -133,11 +135,11 @@ addRole(role:RoleDTO) {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.role)
     console.log(this.group)
-    this.user.ruoli=this.role
-    this.user.groupDTO=this.group
+    this.user.ruoli = this.role
+    this.user.groupDTO = this.group
 
     console.log(this.user)
     this.http.createUser(this.user).subscribe()
@@ -161,5 +163,9 @@ addRole(role:RoleDTO) {
     });
   }
 
+  selectGroup(group: GroupDTO) {
+    console.log(group);
+    this.group = group;
+  }
 
 }

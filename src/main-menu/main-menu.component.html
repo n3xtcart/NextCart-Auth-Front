@@ -1,10 +1,32 @@
-<div class="container-fluid mt-5">
-  <div class="card text-center">
+<div class="d-flex justify-content-center align-content-center text-center">
+  <div class="m-3 p-3 with-shadow">
+    <div class="card  m-3 p-3" id="main-card">
+      <div class="card-body">
+        <h1 class="card-title">Ciao {{ userDTO.nome }}</h1>
+        <p class="card-text">Benvenuto sul portale amministrativo, da qui accedere a tutte le funzionalità da
+          amministrazione</p>
+      </div>
 
-    <div class="card-body">
-      <h2 class="card-title">Ciao {{ userDTO.nome }}</h2>
-      <p class="card-text">Benvenuto sul portale amministrativo, da qui accedere a tutte le funzionalità da
-        amministrazione, mostrate nella barra in alto</p>
+      <div class="m-3 p-3 main-btn">
+        <ul class="list-group list-group-horizontal p-3 m-3">
+          <li class="list-group-item p-3 m-3 with-shadow">
+            Vai al portale
+            <a [routerLink]="'/main-menu/users'">Utenti</a>
+          </li>
+          <li class="list-group-item p-3 m-3 with-shadow">
+            Vai al portale
+            <a [routerLink]="'/main-menu/groups'">Gruppi</a>
+          </li>
+          <li class="list-group-item p-3 m-3 with-shadow">
+            Vai al portale
+            <a [routerLink]="'/main-menu/roles'">Ruoli</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="main-btn">
+      <button class="text-center btn btn-outline-danger" (click)="logout()">Logout</button>
     </div>
   </div>
 </div>

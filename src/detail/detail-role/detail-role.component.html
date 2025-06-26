@@ -1,20 +1,21 @@
 <div class="container-fluid text-center mt-3">
-  <div class="card">
+  <div class="card with-shadow">
     <div class="card-body">
       <h5 class="card-title">Ruolo</h5>
       <p class="card-subtitle">Id: {{ role.id }}</p>
     </div>
     <ul class="list-group list-group-flush p-3">
       <li class="list-group-item p-2">
-        Ultima modifica: {{role.ultimaModifica?formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}
+        Ultima modifica: {{ role.ultimaModifica ? formatDate(role.ultimaModifica, 'yyyy-MM-dd', 'en-US') : undefined }}
       </li>
       <li class="list-group-item p-2">
-        Data creazione: {{role.dataCreazione?formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}
+        Data creazione: {{ role.dataCreazione ? formatDate(role.dataCreazione, 'yyyy-MM-dd', 'en-US') : undefined }}
       </li>
       <li class="list-group-item p-2">
         Id Utente che ha effettuato la creazione: {{ role.creationUser }}
       </li>
       <li class="list-group-item p-2">
+        Tipo di ruolo:
         <strong>
           @if (role.admin) {
             Amministratore
@@ -24,16 +25,16 @@
         </strong>
       </li>
       <li class="list-group-item p-2">Priorità: <strong>{{ role.priority }}</strong></li>
-      <li class="list-group-item p-2"> {{ role.descrizione }}</li>
+      <li class="list-group-item p-2">Descizione:<br> {{ role.descrizione }}</li>
     </ul>
   </div>
 
-  <div class="m-2 p-3"><!-- Trigger button -->
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-  Modifica
-</button>
+  <div class="m-2 p-3">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+      Modifica
+    </button>
     <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
   </div>
 
- <app-modal-role [role]="role"></app-modal-role>
+  <app-modal-role [role]="role"></app-modal-role>
 </div>

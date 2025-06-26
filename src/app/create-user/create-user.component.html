@@ -1,67 +1,88 @@
-<div class="container-fluid text-center mt-3">
-    <div class="card">
-        <div class="card-body">
-            <form (ngSubmit)="onSubmit()">
-                <div class="row">
-
-                    <div class="col">
-                        <label for="nome">Nome:</label><br>
-                        <input type="text" name="nome" id="nome" [(ngModel)]="user.nome"><br>
-                        <label for="cognome">Cognome:</label><br>
-                        <input type="text" name="cognome" id="cognome" [(ngModel)]="user.cognome"><br>
-                        <label for="group">Group:</label><br>
-                        <select id="group" name="group" [(ngModel)]="group">
-                            @for (group of groups; track $index) {
-                            <option [ngValue]="group">{{group.id}}</option>
-                            }
-                        </select>
-                        <mat-paginator [length]="totalElementsGroup" [pageSize]="pageSizeGroup"
-                            [pageIndex]="pageIndexGroup" [pageSizeOptions]="[5, 10, 20]"
-                            (page)="onPageChangeGroups($event)"></mat-paginator><br><br>
-                    </div>
-                    <div class="col">
-
-                        <label for="email">Email:</label><br>
-                        <input type="email" name="email" id="email" [(ngModel)]="user.email"><br>
-                        <label for="password">Password:</label><br>
-                        <input type="password" name="password" id="password" [(ngModel)]="user.password"><br>
-                        <label for="role">Role:</label><br>
-                        <div class="row">
-                                <div class="col">
-
-                                    <select id="role" name="role" [(ngModel)]="selectedRole" (change)="addRole(selectedRole)">
-                                        @for (role of roles; track $index) {
-                                            <option [ngValue]="role">{{role.descrizione}}</option>
-                                        }
-                                    </select>
-                                    <mat-paginator [length]="totalElementsRole" [pageSize]="pageSizeRole"
-                                    [pageIndex]="pageIndexRole" [pageSizeOptions]="[5, 10, 20]"
-                                    (page)="onPageChangeRoles($event)"></mat-paginator>
-                                </div>
-                            <br>
-
-                            
-                        </div>
-
-                    </div><br>
-                     <div class="row">
-
-        @for (item of role; track $index) {
-            <div class="col m-2 border position-relative">
-                <button type="button" class="btn-close position-absolute top-0 end-0 " (click)="delete($index)"></button>
-
-                id : {{item.id}}
-                <br>
-                descrizione : {{item.descrizione}}
-            </div>
-        }
+<div class="container-fluid text-center" style="width: 975px">
+  <div class="card with-shadow">
+    <div class="mt-3">
+      <h2>Crea un nuovo utente</h2>
     </div>
-                </div>
-                <input type="submit" value="submit" class="btn btn-primary">
 
-            </form>
+    <div class="card-body p-3">
+      <form (ngSubmit)="onSubmit()">
+
+        <div class="input-group m-2 m-lg-1">
+          <span class="input-group-text">Nome</span>
+          <input type="text" aria-label="Nome" class="form-control" name="nome" [(ngModel)]="user.nome">
         </div>
 
+        <div class="input-group m-2 m-lg-1">
+          <span class="input-group-text">Cognome</span>
+          <input type="text" aria-label="Cognome" class="form-control" name="cognome" [(ngModel)]="user.cognome">
+        </div>
+
+        <div class="input-group m-2 m-lg-1">
+          <span class="input-group-text">Email</span>
+          <input type="email" aria-label="Email" class="form-control" name="email" [(ngModel)]="user.email">
+        </div>
+
+        <div class="input-group m-2 m-lg-1">
+          <span class="input-group-text">Password</span>
+          <input type="email" aria-label="Password" class="form-control" name="password" [(ngModel)]="user.password">
+        </div>
+
+        <div class="col p-3">
+          <div class="m-2 ">
+            <label for="group" class="m-2">Gruppi</label><br>
+            <div id="group" class="row wrap-flex">
+              @for (g of groups; track $index) {
+                <div class="col-sm-6">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <h5 class="card-title">Gruppo {{ g.id }}</h5>
+                      <p class="card-text">{{ g.descrizione }}</p>
+                      @if (g.id === group.id) {
+                        <button type="button" class="btn btn-outline-primary" disabled>Seleziona</button>
+                      } @else {
+                        <button type="button" class="btn btn-primary" (click)=selectGroup(g)>Seleziona</button>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+            <mat-paginator [length]="totalElementsGroup" [pageSize]="pageSizeGroup"
+                           [pageIndex]="pageIndexGroup" [pageSizeOptions]="[2, 3, 5]"
+                           (page)="onPageChangeGroups($event)"></mat-paginator>
+          </div>
+        </div>
+        <div class="col p-3">
+          <div class="m-2">
+            <label for="role" class="m-2">Ruoli</label><br>
+            <div id="role" class="row">
+              @for (r of roles; track $index) {
+                <div class="col-sm-6">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <h5 class="card-title">Ruolo {{ r.id }}</h5>
+                      <p class="card-text">{{ r.descrizione }}</p>
+                      @if (verifyPresence(r)) {
+                        <button type="button" class="btn btn-danger" (click)="removeRole(r)">Rimuovi</button>
+                      } @else {
+                        <button type="button" class="btn btn-primary" (click)=addRole(r)>Seleziona</button>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+            <mat-paginator [length]="totalElementsRole" [pageSize]="pageSizeRole"
+                           [pageIndex]="pageIndexRole" [pageSizeOptions]="[2, 3, 5]"
+                           (page)="onPageChangeRoles($event)"></mat-paginator>
+          </div>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Crea">
+
+      </form>
     </div>
-   
-    </div>
+
+  </div>
+
+</div>

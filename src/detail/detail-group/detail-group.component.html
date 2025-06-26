@@ -1,14 +1,15 @@
 <div class="container-fluid mt-1 text-center">
-  <div class="card">
+  <div class="card with-shadow">
     <h5 class="card-header">Id gruppo: {{ group.id }}</h5>
     <div class="card-body">
       <ul class="list-group list-group-flush">
-         <li class="list-group-item p-2">
-        Ultima modifica: {{group.ultimaModifica?formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}
-      </li>
-      <li class="list-group-item p-2">
-        Data creazione: {{group.dataCreazione?formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}
-      </li>
+        <li class="list-group-item p-2">
+          Ultima
+          modifica: {{ group.ultimaModifica ? formatDate(group.ultimaModifica, 'yyyy-MM-dd', 'en-US') : undefined }}
+        </li>
+        <li class="list-group-item p-2">
+          Data creazione: {{ group.dataCreazione ? formatDate(group.dataCreazione, 'yyyy-MM-dd', 'en-US') : undefined }}
+        </li>
         <li class="list-group-item p-2">
           Id Utente che ha effettuato la creazione: {{ group.creationUser }}
         </li>
@@ -34,13 +35,13 @@
     </div>
   </div>
 
-  <div class="m-2 p-3"><!-- Trigger button -->
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-  Modifica
-</button>
+  <div class="m-2 p-3">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+      Modifica
+    </button>
     <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
   </div>
 
- <app-modal-group [group]="group"></app-modal-group>
+  <app-modal-group [group]="group"></app-modal-group>
 </div>
 

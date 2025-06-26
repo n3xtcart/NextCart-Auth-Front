@@ -1,5 +1,5 @@
 <div class="container-fluid text-center mt-3">
-  <div class="card">
+  <div class="card with-shadow">
     <div class="card-body">
       <h5 class="card-title">Utente</h5>
       <p class="card-subtitle">Id: {{ user.id }}</p>
@@ -17,9 +17,11 @@
       <li class="list-group-item p-2">
         Password: {{ user.password }}
       </li>
-      <li class="list-group-item p-2">
-        Gruppo: {{ user.groupDTO.id }}
-      </li>
+      @if (user.groupDTO) {
+        <li class="list-group-item p-2">
+          Gruppo: {{ user.groupDTO.id }}
+        </li>
+      }
       <li class="list-group-item p-2">
         Ruoli
         <div>
@@ -36,10 +38,10 @@
         </div>
       </li>
       <li class="list-group-item p-2">
-        Ultima modifica: {{user.ultimaModifica?formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US'):undefined }}
+        Ultima modifica: {{ user.ultimaModifica ? formatDate(user.ultimaModifica, 'yyyy-MM-dd', 'en-US') : undefined }}
       </li>
       <li class="list-group-item p-2">
-        Data creazione: {{user.dataCreazione?formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US'):undefined }}
+        Data creazione: {{ user.dataCreazione ? formatDate(user.dataCreazione, 'yyyy-MM-dd', 'en-US') : undefined }}
       </li>
       <li class="list-group-item p-2">
         Id Utente che ha effettuato la creazione: {{ user.creationUser }}
@@ -49,11 +51,11 @@
 
   <div class="m-2 p-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-  Modifica
-</button>
+      Modifica
+    </button>
     <button type="button" class="btn btn-danger m-1" (click)="delete()">Cancella</button>
   </div>
 
- <app-modal-user [user]="user"></app-modal-user>
-  
+  <app-modal-user [user]="user"></app-modal-user>
+
 </div>
